@@ -21,17 +21,18 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             color: var(--text);
+            padding: 60px 0;
         }
 
         /* Top Progress Bar */
         #progress-header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 15px;
             text-align: center; font-weight: bold; color: var(--primary);
-            background: rgba(255,255,255,0.8); z-index: 50; display: none;
+            background: rgba(255,255,255,0.9); z-index: 50; display: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
@@ -48,16 +49,13 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
+            margin: auto;
         }
 
-        .active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .active { display: block; opacity: 1; transform: translateY(0); }
 
-        h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; }
-        p { font-size: 1rem; margin-bottom: 20px; line-height: 1.5; }
+        h1 { color: var(--primary); font-size: 1.4rem; margin-bottom: 10px; }
+        p { font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; }
 
         button {
             background: var(--primary); color: white; border: none;
@@ -67,21 +65,15 @@
             width: 100%; margin: 8px 0;
         }
         button:active { transform: scale(0.95); }
-        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 10px; font-size: 0.9rem; }
 
-        /* Stage Specifics */
         .gift-box { font-size: 5rem; animation: pulse 1.5s infinite; cursor: pointer; margin-bottom: 20px;}
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
 
-        input[type=range] { width: 100%; accent-color: var(--primary); margin: 15px 0; }
-        
-        .checkbox-group { text-align: left; margin-bottom: 20px; background: #fef0f5; padding: 15px; border-radius: 10px;}
-        .checkbox-group label { display: block; margin: 10px 0; font-size: 0.95rem; cursor: pointer; }
-        .checkbox-group input { margin-right: 10px; accent-color: var(--primary); transform: scale(1.2); }
-
-        .gacha-box { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;}
-        .gacha-item { font-size: 3rem; cursor: pointer; transition: 0.3s; }
-        .gacha-item:active { transform: scale(0.8); }
+        /* Stage 6: Checkbox Styling */
+        .checkbox-group { text-align: left; margin-bottom: 20px; background: #fef0f5; padding: 15px; border-radius: 15px; border: 1px solid var(--secondary); }
+        .checkbox-group label { display: flex; align-items: flex-start; margin: 12px 0; font-size: 0.85rem; cursor: pointer; line-height: 1.3; }
+        .checkbox-group input { margin-right: 12px; margin-top: 2px; accent-color: var(--primary); transform: scale(1.3); flex-shrink: 0; }
 
         /* Certificate */
         #certificate-area {
@@ -90,16 +82,31 @@
             position: relative; margin-bottom: 20px; color: #333;
             outline: 2px solid var(--primary); outline-offset: -8px;
         }
-        .cert-header { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 10px; line-height: 1; }
+        .cert-header { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--primary); line-height: 1; }
         .cert-name { 
-            font-family: 'Dancing Script', cursive; font-size: 3.2rem; 
-            margin: 15px 0; color: #d63384; border-bottom: 2px solid var(--secondary);
-            display: inline-block; padding: 0 20px; line-height: 1.2;
+            font-family: 'Dancing Script', cursive; font-size: 2.4rem; 
+            margin: 10px 0; color: #d63384; border-bottom: 2px solid var(--secondary);
+            display: inline-block; padding: 0 10px; line-height: 1.2;
         }
-        .cert-body { font-weight: 600; font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+        .cert-body { font-weight: 600; font-size: 0.85rem; line-height: 1.5; color: var(--text); }
         .cert-medal { font-size: 3rem; margin: 10px 0; }
 
         .hidden { display: none !important; }
+
+        /* Custom Notification */
+        #custom-popup {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6); z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            visibility: hidden; opacity: 0; transition: 0.3s;
+        }
+        #custom-popup.show { visibility: visible; opacity: 1; }
+        .popup-content {
+            background: white; padding: 25px; border-radius: 20px;
+            text-align: center; max-width: 300px; width: 85%;
+            transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #custom-popup.show .popup-content { transform: scale(1); }
     </style>
 </head>
 <body>
@@ -108,21 +115,32 @@
         <source src="lagu.mp3" type="audio/mpeg">
     </audio>
 
+    <div id="custom-popup">
+        <div class="popup-content">
+            <div id="popup-emoji" style="font-size: 3rem; margin-bottom: 10px;">😝</div>
+            <div id="popup-text" style="font-size: 1rem; font-weight: bold; margin-bottom: 20px;">Pesan</div>
+            <button onclick="tutupNotif()" style="width:120px; margin:0 auto;">Okee</button>
+        </div>
+    </div>
+
     <div id="progress-header">Perjalanan Cinta Kita 💖 (Stage <span id="stage-num">0</span>/10)</div>
 
     <div class="container active" id="stage0">
         <div class="gift-box" onclick="startJourney()">🎁</div>
         <h1>Ada Kado Buat Ayang!</h1>
-        <p>Sentuh kadonya atau klik tombol di bawah buat mulai perjalanan yaa.</p>
-        <button onclick="startJourney()">Buka Kado 💌</button>
+        <p>Buka kadonya buat mulai petualangan kecil ini ya Risma Ayu Nursyifa.</p>
+        <button onclick="startJourney()">Buka Sekarang 💌</button>
     </div>
 
     <div class="container" id="stage1">
         <h1>Stage 1: Pemanasan</h1>
-        <p>Siapa nama cewek yang cantiknya bikin aku klepek-klepek tiap hari?</p>
-        <button class="btn-outline" onclick="salah()">Kendall Jenner</button>
-        <button class="btn-outline" onclick="salah()">Gigi Hadid</button>
-        <button onclick="nextStage(1)">Ayu Sayangku! 🥰</button>
+        <p>Siapa pemilik senyum paling manis yang bikin aku jatuh cinta tiap detik?</p>
+        <button class="btn-outline" onclick="showNotif('Tetot! Dia cantik sih, tapi bukan favoritku! 😝')">Bae Suzy</button>
+        <button class="btn-outline" onclick="showNotif('No! Ayang aku lebih gemesin dari dia! 😤')">Han So-hee</button>
+        <button class="btn-outline" onclick="showNotif('Salah! Coba cari nama yang paling cantik di hatiku! 🧚‍♀️')">Lee Ji-eun (IU)</button>
+        <button class="btn-outline" onclick="showNotif('Cantikan Ayang aku ke mana-mana dong! 💅')">Kim Ji-won</button>
+        <button class="btn-outline" onclick="showNotif('Bukan! Dia mah artis, kalau bidadariku ya kamu! ❤️')">Song Hye-kyo</button>
+        <button onclick="nextStage(1)">Risma Ayu Nursyifa 🥰</button>
     </div>
 
     <div class="container" id="stage2">
@@ -130,100 +148,112 @@
         <p>Kangen aku seberapa persen nih hari ini?</p>
         <h2 id="kangen-val" style="color:var(--primary); margin:10px 0;">0%</h2>
         <input type="range" min="0" max="100" value="0" oninput="updateKangen(this.value)">
-        <button id="btn-s2" class="hidden" onclick="nextStage(2)">Wah Sama! Lanjut 🚀</button>
+        <button id="btn-s2" class="hidden" onclick="nextStage(2)">Lanjut Ayang! 🚀</button>
     </div>
 
     <div class="container" id="stage3">
         <h1>Stage 3: Ujian Kegigihan</h1>
-        <p>Coba tangkep tombol ini buat buktiin kalau kamu emang pengen lanjut!</p>
-        <div style="height: 150px; position: relative;">
-            <button id="btn-lari" style="position:absolute; width:150px; left:50%; transform:translateX(-50%);" ontouchstart="lari()" onmouseover="lari()">Kejar Aku! 🏃‍♂️</button>
+        <p>Tangkep tombolnya kalau emang sayang! (Awas licin 😝)</p>
+        <p id="tease-text" style="color:var(--primary); font-weight:bold; height:20px; font-size:0.8rem;"></p>
+        <div style="height: 180px; position: relative;" id="area-lari">
+            <button id="btn-lari" style="position:absolute; width:130px; left:50%; transform:translateX(-50%);" ontouchstart="lari()" onmouseover="lari()">Kejar Aku! 🏃‍♀️</button>
         </div>
     </div>
 
     <div class="container" id="stage4">
         <h1>Stage 4: Kirim Cium</h1>
-        <p>Ayo kirim 15 ciuman online secepat mungkin biar pintunya kebuka!</p>
-        <button onclick="clickCium()" id="btn-cium" style="font-size:1.2rem; padding:20px;">Kecup! (0/15) 💋</button>
+        <p>Spam 15 ciuman online buat aku dong!</p>
+        <button onclick="clickCium()" id="btn-cium" style="font-size:1.1rem; padding:15px;">Kecup! (0/15) 💋</button>
     </div>
 
     <div class="container" id="stage5">
-        <h1>Stage 5: Pilih Kotakmu</h1>
-        <p>Pilih satu amplop buat dapet pesan rahasia!</p>
+        <h1>Stage 5: Amplop Rahasia</h1>
         <div class="gacha-box">
-            <div class="gacha-item" onclick="bukaGacha('Kalau rindu itu berbayar, aku pasti udah bangkrut mikirin Ayu terus. 🥺')">✉️</div>
-            <div class="gacha-item" onclick="bukaGacha('Senyum Ayang tuh kayak kopi, bikin melek dan candu. ☕')">✉️</div>
-            <div class="gacha-item" onclick="bukaGacha('Dunia ini luas, tapi tempat favoritku tetep di sebelah kamu. 🌍')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha('Kangen itu berat, biar aku aja yang nanggung, Ayang fokus senyum aja. 🥺')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha('Senyum kamu itu penyemangat paling ampuh buat aku. ☕')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha('Aku gak butuh dunia, aku cuma butuh kamu di sampingku. 🌍')">✉️</div>
         </div>
-        <p id="teks-gacha" style="font-weight:bold; color:var(--primary); min-height: 50px;"></p>
-        <button id="btn-s5" class="hidden" onclick="nextStage(5)">Bikin Salting! Lanjut 😘</button>
+        <p id="teks-gacha" style="font-weight:bold; color:var(--primary); min-height: 50px; font-size: 0.9rem;"></p>
+        <button id="btn-s5" class="hidden" onclick="nextStage(5)">Salting Brutal! Lanjut 😘</button>
     </div>
 
     <div class="container" id="stage6">
-        <h1>Stage 6: Kontrak Bucin</h1>
-        <p>Ayang harus centang semua janji di bawah ini ya!</p>
+        <h1>Stage 6: Kontrak Perhatian</h1>
+        <p>Ayang harus janjiin hal-hal ini buat aku ya? Centang semua!</p>
         <div class="checkbox-group">
-            <label><input type="checkbox" onchange="cekJanji()"> Janji gak telat makan</label>
-            <label><input type="checkbox" onchange="cekJanji()"> Janji jaga kesehatan</label>
-            <label><input type="checkbox" onchange="cekJanji()"> Janji sayang aku terus</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji Makan 3 kali sehari lebih dari 15 Suap 🍚</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji Minum 1300 ml Air Perhari 💧</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji buat selalu senyum 😊</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji buat lebih bisa ngelola emosi 🧘‍♀️</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji buat lebih hati-hati lagi dalam berbagai hal ⚠️</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji tidur gak akan larut lagi 😴</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji buat makiiiiiiin sayang ❤️</label>
         </div>
-        <button id="btn-s6" class="hidden" onclick="nextStage(6)">Aku Janji! ✌️</button>
+        <button id="btn-s6" class="hidden" onclick="nextStage(6)">Aku Janji, Sayang! 🤝</button>
     </div>
 
     <div class="container" id="stage7">
         <h1>Stage 7: Transfer Energi</h1>
-        <p>Tahan tombol di bawah ini sampai energinya penuh!</p>
-        <button id="btn-tahan" ontouchstart="mulaiCharge()" ontouchend="stopCharge()" onmousedown="mulaiCharge()" onmouseup="stopCharge()">Tahan Terussss! ⚡</button>
-        <div style="width:100%; height:15px; background:#eee; border-radius:10px; margin-top:15px; overflow:hidden;">
+        <p>Tahan tombolnya buat kirim energi cinta!</p>
+        <button id="btn-tahan" ontouchstart="mulaiCharge()" ontouchend="stopCharge()" onmousedown="mulaiCharge()" onmouseup="stopCharge()">Tahan ⚡</button>
+        <div style="width:100%; height:12px; background:#eee; border-radius:10px; margin-top:15px; overflow:hidden;">
             <div id="bar-energi" style="width:0%; height:100%; background:var(--primary); transition:0.1s;"></div>
         </div>
     </div>
 
     <div class="container" id="stage8">
         <h1>Stage 8: Cek Fakta</h1>
-        <p>Hal apa yang paling aku suka dari Risma Ayu Nursyifa?</p>
-        <button class="btn-outline" onclick="alert('Bener, tapi ada yang lebih tepat!')">Senyum Manisnya</button>
-        <button class="btn-outline" onclick="alert('Bener juga, tapi kurang tepat!')">Sifat Manjanya</button>
-        <button onclick="nextStage(8)">Semuanya Tanpa Terkecuali! 💖</button>
+        <p>Apa sih yang paling bikin aku sayang banget sama kamu?</p>
+        <button class="btn-outline" onclick="showNotif('Betul, tapi ada yang lebih luas lagi!', '🥰')">Sifat Baiknya</button>
+        <button class="btn-outline" onclick="showNotif('Betul, tapi bukan cuma itu!', '👀')">Mata Indahnya</button>
+        <button onclick="nextStage(8)">Semua Yang Ada Di Dirimu 💖</button>
     </div>
 
     <div class="container" id="stage9">
         <h1>Stage 9: Hampir Sampai!</h1>
-        <p>Gimana perjalanannya? Seru kan? Tarik napas dulu, hadiah utamanya udah di depan mata nih.</p>
-        <button onclick="nextStage(9)">Buka Hadiah Utama! 👑</button>
+        <p>Udah siap dapet penghargaan tertinggi dari aku?</p>
+        <button onclick="nextStage(9)">SIAP BANGET! 👑</button>
     </div>
 
     <div class="container" id="stage10" style="max-width: 450px;">
         <div id="certificate-area">
             <div class="cert-header">Sertifikat Cinta</div>
-            <p style="margin: 5px 0; font-size:0.9rem;">Diberikan dengan penuh cinta kepada:</p>
+            <p style="margin: 5px 0; font-size:0.8rem;">Diberikan dengan penuh kasih sayang kepada:</p>
             <div class="cert-name">Risma Ayu Nursyifa</div>
             <div class="cert-body">
                 Ditetapkan Sebagai:<br>
-                <span style="font-size: 1.4rem; color: #d63384; font-family:'Poppins'; margin:8px 0; display:block;">✨ Pemilik Senyuman Termanis ✨</span>
-                Karena telah berhasil melewati semua ujian kesabaran dan sukses meluluhkan hatiku seutuhnya.
+                <span style="font-size: 1.2rem; color: #d63384; font-family:'Poppins'; margin:8px 0; display:block;">✨ Pemilik Senyuman Termanis ✨</span>
+                Karena telah berhasil melewati 10 ujian kesabaran dan selalu menjadi alasan aku untuk bahagia.
             </div>
             <div class="cert-medal">💖</div>
-            <div style="font-size: 0.8rem; color: #777; border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px;">
-                Tertanda,<br><b style="color:var(--primary);">Lelaki yang Paling Beruntung Memilikimu</b>
+            <div style="font-size: 0.7rem; color: #777; border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 5px;">
+                Tertanda,<br><b style="color:var(--primary);">Seseorang yang Selalu Mencintaimu</b>
             </div>
         </div>
         
-        <button onclick="downloadCert()" style="background: #28a745; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);">⬇️ Unduh Sertifikat (PNG)</button>
-        <p style="font-size: 0.8rem; margin-top: 15px;">Pamerin ke SG/Status ya Ayang! 😍</p>
+        <button id="btn-download" onclick="downloadCert()" style="background: #28a745;">⬇️ Simpan Sertifikat (PNG)</button>
+        <button onclick="resetJourney()" style="background: #eee; color: #333; margin-top: 20px; box-shadow:none;">Ulangi Dari Awal 🔄</button>
     </div>
 
     <script>
         let current = 0;
 
+        function showNotif(pesan, emoji = "😝") {
+            document.getElementById('popup-text').innerText = pesan;
+            document.getElementById('popup-emoji').innerText = emoji;
+            document.getElementById('custom-popup').classList.add('show');
+        }
+        function tutupNotif() { document.getElementById('custom-popup').classList.remove('show'); }
+
         function startJourney() {
-            document.getElementById('audioAyang').play().catch(e => console.log('Audio autoplay blocked'));
+            document.getElementById('audioAyang').play().catch(e => console.log('Autoplay blocked'));
             document.getElementById('progress-header').style.display = 'block';
             nextStage(0);
         }
 
         function nextStage(num) {
             document.getElementById('stage' + num).classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             setTimeout(() => {
                 current = num + 1;
                 document.getElementById('stage-num').innerText = current;
@@ -232,94 +262,80 @@
             }, 300);
         }
 
-        function salah() { alert("Tetoooot! Masa lupa sih? Coba lagi! 😝"); }
-
-        // S2: Kangen
         function updateKangen(val) {
             document.getElementById('kangen-val').innerText = val + "%";
             if(val == 100) document.getElementById('btn-s2').classList.remove('hidden');
         }
 
-        // S3: Lari
         let lariCount = 0;
+        const ledekan = ["Wlee gak dapet! 😝", "Kurang cepet! 🐢", "Sini tangkep! 💨", "Dikit lagi! 😂", "Meleset! 😜", "Capek ya? ❤️"];
         function lari() {
             const btn = document.getElementById('btn-lari');
+            const tease = document.getElementById('tease-text');
             lariCount++;
-            const maxW = document.getElementById('stage3').offsetWidth - 150;
-            const maxH = 100;
-            const x = Math.random() * maxW - (maxW/2);
-            const y = Math.random() * maxH;
-            
+            tease.innerText = ledekan[Math.floor(Math.random() * ledekan.length)];
+            const x = Math.random() * (document.getElementById('area-lari').offsetWidth - 130) - (document.getElementById('area-lari').offsetWidth/2 - 65);
+            const y = Math.random() * 120;
             btn.style.transform = `translate(${x}px, ${y}px)`;
-            
-            if(lariCount >= 5) {
-                btn.style.transform = `translate(-50%, 0)`;
-                btn.innerText = "Oke Ketangkep! 🥰";
-                btn.onclick = () => nextStage(3);
-                btn.ontouchstart = null; btn.onmouseover = null;
+            if(lariCount >= 10) {
+                btn.style.transform = "translateX(-50%)"; btn.style.top = "40px";
+                tease.innerText = "Yey ketangkep! 🥰"; btn.innerText = "Lanjut! ❤️";
+                btn.onclick = () => nextStage(3); btn.onmouseover = null; btn.ontouchstart = null;
             }
         }
 
-        // S4: Cium
         let ciumCount = 0;
         function clickCium() {
             ciumCount++;
             document.getElementById('btn-cium').innerText = `Kecup! (${ciumCount}/15) 💋`;
             if(ciumCount >= 15) {
-                document.getElementById('btn-cium').innerText = "Manis Banget! Lanjut! 🚀";
+                document.getElementById('btn-cium').innerText = "Mwah! Lanjut 🚀";
                 document.getElementById('btn-cium').onclick = () => nextStage(4);
             }
         }
 
-        // S5: Gacha
-        function bukaGacha(teks) {
-            document.getElementById('teks-gacha').innerText = teks;
+        function bukaGacha(t) {
+            document.getElementById('teks-gacha').innerText = t;
             document.getElementById('btn-s5').classList.remove('hidden');
         }
 
-        // S6: Janji
         function cekJanji() {
             const cb = document.querySelectorAll('.checkbox-group input');
-            let allChecked = true;
-            cb.forEach(c => { if(!c.checked) allChecked = false; });
-            if(allChecked) document.getElementById('btn-s6').classList.remove('hidden');
+            let all = true;
+            cb.forEach(c => { if(!c.checked) all = false; });
+            if(all) document.getElementById('btn-s6').classList.remove('hidden');
             else document.getElementById('btn-s6').classList.add('hidden');
         }
 
-        // S7: Charge
-        let chargeInt, chargeVal = 0;
+        let chargeVal = 0, chargeInt;
         function mulaiCharge() {
-            document.getElementById('btn-tahan').innerText = "Tahan Terus! ⚡";
             chargeInt = setInterval(() => {
-                chargeVal += 3;
+                chargeVal += 2;
                 document.getElementById('bar-energi').style.width = chargeVal + "%";
                 if(chargeVal >= 100) {
                     clearInterval(chargeInt);
-                    document.getElementById('btn-tahan').innerText = "Energi Penuh! ❤️";
-                    document.getElementById('btn-tahan').ontouchstart = null;
-                    document.getElementById('btn-tahan').onmousedown = null;
-                    setTimeout(() => nextStage(7), 800);
+                    nextStage(7);
                 }
             }, 50);
         }
-        function stopCharge() { 
-            clearInterval(chargeInt); 
-            if(chargeVal < 100) document.getElementById('btn-tahan').innerText = "Yah Kok Dilepas? Tahan Lagi! 🥺";
+        function stopCharge() { clearInterval(chargeInt); }
+
+        function downloadCert() {
+            const btn = document.getElementById('btn-download');
+            btn.innerText = "⏳ Sedang Memproses...";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            setTimeout(() => {
+                html2canvas(document.getElementById('certificate-area'), { scale: 3, backgroundColor: "#ffffff" }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'Sertifikat_Buat_Ayu.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                    btn.innerText = "✅ Berhasil Disimpan!";
+                });
+            }, 500);
         }
 
-        // S10: Download PDF/PNG
-        function downloadCert() {
-            const btn = document.querySelector('button[onclick="downloadCert()"]');
-            btn.innerText = "Memproses...";
-            const area = document.getElementById('certificate-area');
-            html2canvas(area, { scale: 3, backgroundColor: "#ffffff" }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'Sertifikat_Ayu.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                btn.innerText = "⬇️ Unduh Sertifikat (PNG)";
-            });
-        }
+        function resetJourney() { location.reload(); }
     </script>
 </body>
 </html>
