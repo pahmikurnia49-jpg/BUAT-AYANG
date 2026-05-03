@@ -3,97 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Spesial Buat Ayang 💖</title>
+    <title>Spesial Buat Ayang Ayu 💖</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-dark: #ff4d94;
-            --pink-light: #ffb3d1;
-            --bg-color: #fff0f6;
+            --primary: #ff4d94;
+            --secondary: #ffb3d1;
+            --bg: #fff0f6;
+            --text: #5a3d5c;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: var(--bg-color);
+            background: radial-gradient(circle at top, var(--bg), #ffe0ec);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            color: #5a3d5c;
+            overflow: hidden;
+            color: var(--text);
         }
 
-        /* Floating Stickers */
-        .stickers {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-        }
-        .sticker {
-            position: absolute; font-size: 2rem;
-            animation: floatUp 8s linear infinite; opacity: 0.6;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        /* Top Progress Bar */
+        #progress-header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 15px;
+            text-align: center; font-weight: bold; color: var(--primary);
+            background: rgba(255,255,255,0.8); z-index: 50; display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        /* Container */
         .container {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px 20px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(255, 102, 163, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 77, 148, 0.2);
             text-align: center;
-            max-width: 450px;
+            max-width: 400px;
             width: 90%;
             z-index: 10;
             display: none;
-            animation: fadeIn 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        h1 { font-family: 'Fredoka One', cursive; color: var(--pink-dark); margin-bottom: 15px; }
-        p { font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; line-height: 1.4; }
+        .active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; }
+        p { font-size: 1rem; margin-bottom: 20px; line-height: 1.5; }
 
         button {
-            background: var(--pink-dark); color: white; border: none;
-            padding: 12px 20px; font-size: 1rem; font-family: 'Fredoka One', cursive;
-            border-radius: 50px; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 102, 163, 0.3);
-            width: 100%; max-width: 280px; margin: 10px 0;
+            background: var(--primary); color: white; border: none;
+            padding: 12px 20px; font-size: 1rem; font-weight: bold;
+            border-radius: 50px; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 77, 148, 0.3);
+            width: 100%; margin: 8px 0;
         }
-        button:hover { transform: scale(1.05); background: #e60073; }
+        button:active { transform: scale(0.95); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
 
-        /* Khusus Input & Games */
-        input[type=range] { width: 100%; accent-color: var(--pink-dark); margin: 15px 0; }
-        .hidden { display: none; }
+        /* Stage Specifics */
+        .gift-box { font-size: 5rem; animation: pulse 1.5s infinite; cursor: pointer; margin-bottom: 20px;}
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+
+        input[type=range] { width: 100%; accent-color: var(--primary); margin: 15px 0; }
         
-        /* Sertifikat Elegant Style */
+        .checkbox-group { text-align: left; margin-bottom: 20px; background: #fef0f5; padding: 15px; border-radius: 10px;}
+        .checkbox-group label { display: block; margin: 10px 0; font-size: 0.95rem; cursor: pointer; }
+        .checkbox-group input { margin-right: 10px; accent-color: var(--primary); transform: scale(1.2); }
+
+        .gacha-box { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;}
+        .gacha-item { font-size: 3rem; cursor: pointer; transition: 0.3s; }
+        .gacha-item:active { transform: scale(0.8); }
+
+        /* Certificate */
         #certificate-area {
-            background: white; padding: 20px; border: 12px double var(--pink-light);
-            border-radius: 10px; position: relative; margin-bottom: 20px;
-            color: #333; overflow: hidden;
+            background: white; padding: 30px 20px; 
+            border: 15px solid var(--secondary); border-radius: 5px;
+            position: relative; margin-bottom: 20px; color: #333;
+            outline: 2px solid var(--primary); outline-offset: -8px;
         }
-        .cert-header { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--pink-dark); }
+        .cert-header { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 10px; line-height: 1; }
         .cert-name { 
-            font-family: 'Great Vibes', cursive; font-size: 2.8rem; 
-            margin: 15px 0; color: #d63384; border-bottom: 2px solid var(--pink-light);
-            display: inline-block; padding: 0 20px;
+            font-family: 'Dancing Script', cursive; font-size: 3.2rem; 
+            margin: 15px 0; color: #d63384; border-bottom: 2px solid var(--secondary);
+            display: inline-block; padding: 0 20px; line-height: 1.2;
         }
-        .cert-body { font-weight: bold; font-size: 0.95rem; line-height: 1.6; }
+        .cert-body { font-weight: 600; font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+        .cert-medal { font-size: 3rem; margin: 10px 0; }
 
-        /* Progress Dots */
-        .dots { display: flex; justify-content: center; margin-top: 20px; gap: 5px; }
-        .dot { width: 8px; height: 8px; background: #ddd; border-radius: 50%; }
-        .dot.active { background: var(--pink-dark); width: 20px; border-radius: 10px; }
-
-        #btn-lari { position: absolute; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -102,211 +108,216 @@
         <source src="lagu.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="stickers" id="stickers"></div>
+    <div id="progress-header">Perjalanan Cinta Kita 💖 (Stage <span id="stage-num">0</span>/10)</div>
 
     <div class="container active" id="stage0">
-        <div style="font-size: 4rem;">🎁</div>
-        <h1>Halo Ayang!</h1>
-        <p>Ada kiriman paket cinta spesial buat <b>Risma Ayu Nursyifa</b>. Buka sekarang?</p>
-        <button onclick="mulaiSemua()">Buka Paket 💌</button>
+        <div class="gift-box" onclick="startJourney()">🎁</div>
+        <h1>Ada Kado Buat Ayang!</h1>
+        <p>Sentuh kadonya atau klik tombol di bawah buat mulai perjalanan yaa.</p>
+        <button onclick="startJourney()">Buka Kado 💌</button>
     </div>
 
     <div class="container" id="stage1">
-        <h1>Stage 1: Verifikasi</h1>
-        <p>Sebelum lanjut, bener ini dengan Ayang Ayu yang punya senyum paling manis itu?</p>
-        <button onclick="nextStage(1)">Iya, ini aku! 🥰</button>
-        <button onclick="alert('Masa sih? Boong ya!')" style="background:#aaa">Bukan, salah orang</button>
+        <h1>Stage 1: Pemanasan</h1>
+        <p>Siapa nama cewek yang cantiknya bikin aku klepek-klepek tiap hari?</p>
+        <button class="btn-outline" onclick="salah()">Kendall Jenner</button>
+        <button class="btn-outline" onclick="salah()">Gigi Hadid</button>
+        <button onclick="nextStage(1)">Ayu Sayangku! 🥰</button>
     </div>
 
     <div class="container" id="stage2">
-        <h1>Stage 2: Mood Check</h1>
-        <p>Gimana perasaan Ayang hari ini? (Geser ke kanan kalau lagi happy!)</p>
-        <div id="mood-emoji" style="font-size: 3rem;">😐</div>
-        <input type="range" min="0" max="100" value="50" oninput="updateMood(this.value)">
-        <button id="btn-next2" class="hidden" onclick="nextStage(2)">Lanjut Ayang! ➡</button>
+        <h1>Stage 2: Cek Resi Kangen</h1>
+        <p>Kangen aku seberapa persen nih hari ini?</p>
+        <h2 id="kangen-val" style="color:var(--primary); margin:10px 0;">0%</h2>
+        <input type="range" min="0" max="100" value="0" oninput="updateKangen(this.value)">
+        <button id="btn-s2" class="hidden" onclick="nextStage(2)">Wah Sama! Lanjut 🚀</button>
     </div>
 
     <div class="container" id="stage3">
-        <h1>Stage 3: Ujian Sabar</h1>
-        <p>Coba klik tombol "Sayang Aku" di bawah ini!</p>
+        <h1>Stage 3: Ujian Kegigihan</h1>
+        <p>Coba tangkep tombol ini buat buktiin kalau kamu emang pengen lanjut!</p>
         <div style="height: 150px; position: relative;">
-            <button id="btn-lari" onmouseover="lari()" ontouchstart="lari()">Sayang Aku ❤️</button>
+            <button id="btn-lari" style="position:absolute; width:150px; left:50%; transform:translateX(-50%);" ontouchstart="lari()" onmouseover="lari()">Kejar Aku! 🏃‍♂️</button>
         </div>
-        <p id="pesan-sabar" style="font-size: 0.8rem; color: #999;">Ayo kejar kalau sayang!</p>
     </div>
 
     <div class="container" id="stage4">
-        <h1>Stage 4: Kirim Peluk</h1>
-        <p>Klik tombol ini 10 kali buat kirim peluk jauh!</p>
-        <button onclick="clickPeluk()" id="btn-peluk">Peluk! (0/10) 🫂</button>
+        <h1>Stage 4: Kirim Cium</h1>
+        <p>Ayo kirim 15 ciuman online secepat mungkin biar pintunya kebuka!</p>
+        <button onclick="clickCium()" id="btn-cium" style="font-size:1.2rem; padding:20px;">Kecup! (0/15) 💋</button>
     </div>
 
     <div class="container" id="stage5">
-        <h1>Stage 5: Skala Kangen</h1>
-        <p>Seberapa kangen Ayang sama aku saat ini?</p>
-        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateKangen(this.value)">
-        <p id="kangen-text">Geser pol kalau kangen banget!</p>
-        <button id="btn-next5" class="hidden" onclick="nextStage(5)">Kangen Banget! 😘</button>
+        <h1>Stage 5: Pilih Kotakmu</h1>
+        <p>Pilih satu amplop buat dapet pesan rahasia!</p>
+        <div class="gacha-box">
+            <div class="gacha-item" onclick="bukaGacha('Kalau rindu itu berbayar, aku pasti udah bangkrut mikirin Ayu terus. 🥺')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha('Senyum Ayang tuh kayak kopi, bikin melek dan candu. ☕')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha('Dunia ini luas, tapi tempat favoritku tetep di sebelah kamu. 🌍')">✉️</div>
+        </div>
+        <p id="teks-gacha" style="font-weight:bold; color:var(--primary); min-height: 50px;"></p>
+        <button id="btn-s5" class="hidden" onclick="nextStage(5)">Bikin Salting! Lanjut 😘</button>
     </div>
 
     <div class="container" id="stage6">
-        <h1>Stage 6: Tebak Hati</h1>
-        <p>Di mana letak cintaku buat kamu?</p>
-        <button onclick="nextStage(6)">Di Hati ❤️</button>
-        <button onclick="nextStage(6)">Di Pikiran 🧠</button>
-        <button onclick="nextStage(6)">Di Seluruh Jiwa Raga 💖</button>
+        <h1>Stage 6: Kontrak Bucin</h1>
+        <p>Ayang harus centang semua janji di bawah ini ya!</p>
+        <div class="checkbox-group">
+            <label><input type="checkbox" onchange="cekJanji()"> Janji gak telat makan</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji jaga kesehatan</label>
+            <label><input type="checkbox" onchange="cekJanji()"> Janji sayang aku terus</label>
+        </div>
+        <button id="btn-s6" class="hidden" onclick="nextStage(6)">Aku Janji! ✌️</button>
     </div>
 
     <div class="container" id="stage7">
-        <h1>Stage 7: Janji Ayang</h1>
-        <p>Ayang janji nggak bakal telat makan hari ini?</p>
-        <button onclick="nextStage(7)">Janji Sayang! 🥗</button>
+        <h1>Stage 7: Transfer Energi</h1>
+        <p>Tahan tombol di bawah ini sampai energinya penuh!</p>
+        <button id="btn-tahan" ontouchstart="mulaiCharge()" ontouchend="stopCharge()" onmousedown="mulaiCharge()" onmouseup="stopCharge()">Tahan Terussss! ⚡</button>
+        <div style="width:100%; height:15px; background:#eee; border-radius:10px; margin-top:15px; overflow:hidden;">
+            <div id="bar-energi" style="width:0%; height:100%; background:var(--primary); transition:0.1s;"></div>
+        </div>
     </div>
 
     <div class="container" id="stage8">
-        <h1>Stage 8: Loading Cinta</h1>
-        <p>Tahan tombol ini buat ngisi energi cinta kita!</p>
-        <button onmousedown="startFill()" onmouseup="stopFill()" ontouchstart="startFill()" ontouchend="stopFill()" id="btn-charge">Tekan Terusss! ⚡</button>
-        <div class="progress-bar" style="height:10px; background:#eee; margin-top:10px; border-radius:5px;">
-            <div id="fill-bar" style="height:100%; width:0%; background:var(--pink-dark); transition: 0.1s;"></div>
-        </div>
+        <h1>Stage 8: Cek Fakta</h1>
+        <p>Hal apa yang paling aku suka dari Risma Ayu Nursyifa?</p>
+        <button class="btn-outline" onclick="alert('Bener, tapi ada yang lebih tepat!')">Senyum Manisnya</button>
+        <button class="btn-outline" onclick="alert('Bener juga, tapi kurang tepat!')">Sifat Manjanya</button>
+        <button onclick="nextStage(8)">Semuanya Tanpa Terkecuali! 💖</button>
     </div>
 
     <div class="container" id="stage9">
-        <h1>Stage 9: Hampir Selesai!</h1>
-        <p>Semua stage sudah dilewati dengan sangat baik. Siap lihat hasilnya?</p>
-        <button onclick="nextStage(9)">SIAP BANGET! 👑</button>
+        <h1>Stage 9: Hampir Sampai!</h1>
+        <p>Gimana perjalanannya? Seru kan? Tarik napas dulu, hadiah utamanya udah di depan mata nih.</p>
+        <button onclick="nextStage(9)">Buka Hadiah Utama! 👑</button>
     </div>
 
-    <div class="container" id="stage10" style="max-width: 550px;">
-        <h1>Stage 10: Hasil Akhir</h1>
-        
+    <div class="container" id="stage10" style="max-width: 450px;">
         <div id="certificate-area">
             <div class="cert-header">Sertifikat Cinta</div>
-            <p style="margin: 5px 0;">Diberikan Kepada :</p>
+            <p style="margin: 5px 0; font-size:0.9rem;">Diberikan dengan penuh cinta kepada:</p>
             <div class="cert-name">Risma Ayu Nursyifa</div>
             <div class="cert-body">
-                Ditetapkan Sebagai : <br>
-                <span style="font-size: 1.5rem; color: #d63384;">👑 Pemilik Senyuman Termanis 👑</span><br>
-                Karena telah berhasil meluluhkan hatiku <br> berkali-kali tanpa rasa bosan.
+                Ditetapkan Sebagai:<br>
+                <span style="font-size: 1.4rem; color: #d63384; font-family:'Poppins'; margin:8px 0; display:block;">✨ Pemilik Senyuman Termanis ✨</span>
+                Karena telah berhasil melewati semua ujian kesabaran dan sukses meluluhkan hatiku seutuhnya.
             </div>
-            <div style="margin-top: 15px; font-size: 0.7rem; color: #888;">
-                Tertanda, Lelaki yang Selalu Mencintaimu ❤️
+            <div class="cert-medal">💖</div>
+            <div style="font-size: 0.8rem; color: #777; border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px;">
+                Tertanda,<br><b style="color:var(--primary);">Lelaki yang Paling Beruntung Memilikimu</b>
             </div>
         </div>
-
-        <button onclick="downloadCert()" style="background: #28a745;">⬇️ Simpan Sertifikat (PNG)</button>
-        <p style="font-size: 0.8rem; margin-top: 10px;">Gunakan sebagai bukti kalau Ayang emang yang paling manis! 😍</p>
+        
+        <button onclick="downloadCert()" style="background: #28a745; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);">⬇️ Unduh Sertifikat (PNG)</button>
+        <p style="font-size: 0.8rem; margin-top: 15px;">Pamerin ke SG/Status ya Ayang! 😍</p>
     </div>
 
     <script>
-        const audio = document.getElementById('audioAyang');
-        let currentStage = 0;
+        let current = 0;
 
-        function mulaiSemua() {
-            audio.play();
+        function startJourney() {
+            document.getElementById('audioAyang').play().catch(e => console.log('Audio autoplay blocked'));
+            document.getElementById('progress-header').style.display = 'block';
             nextStage(0);
-            createStickers();
         }
 
         function nextStage(num) {
             document.getElementById('stage' + num).classList.remove('active');
-            currentStage = num + 1;
-            document.getElementById('stage' + currentStage).classList.add('active');
+            setTimeout(() => {
+                current = num + 1;
+                document.getElementById('stage-num').innerText = current;
+                document.getElementById('stage' + current).classList.add('active');
+                if(current === 10) document.getElementById('progress-header').style.display = 'none';
+            }, 300);
         }
 
-        // Stage 2: Mood
-        function updateMood(v) {
-            const e = document.getElementById('mood-emoji');
-            if(v < 30) e.innerText = "😢";
-            else if(v < 70) e.innerText = "😐";
-            else {
-                e.innerText = "🥰";
-                document.getElementById('btn-next2').classList.remove('hidden');
-            }
+        function salah() { alert("Tetoooot! Masa lupa sih? Coba lagi! 😝"); }
+
+        // S2: Kangen
+        function updateKangen(val) {
+            document.getElementById('kangen-val').innerText = val + "%";
+            if(val == 100) document.getElementById('btn-s2').classList.remove('hidden');
         }
 
-        // Stage 3: Lari
+        // S3: Lari
         let lariCount = 0;
         function lari() {
             const btn = document.getElementById('btn-lari');
             lariCount++;
-            const x = Math.random() * 150;
-            const y = Math.random() * 100;
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            const maxW = document.getElementById('stage3').offsetWidth - 150;
+            const maxH = 100;
+            const x = Math.random() * maxW - (maxW/2);
+            const y = Math.random() * maxH;
             
-            if(lariCount > 5) {
-                document.getElementById('pesan-sabar').innerText = "Oke oke, ditangkep deh! ❤️";
-                btn.onmouseover = null;
-                btn.ontouchstart = null;
-                btn.style.position = "static";
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+            
+            if(lariCount >= 5) {
+                btn.style.transform = `translate(-50%, 0)`;
+                btn.innerText = "Oke Ketangkep! 🥰";
                 btn.onclick = () => nextStage(3);
+                btn.ontouchstart = null; btn.onmouseover = null;
             }
         }
 
-        // Stage 4: Peluk
-        let pelukCount = 0;
-        function clickPeluk() {
-            pelukCount++;
-            const b = document.getElementById('btn-peluk');
-            b.innerText = `Peluk! (${pelukCount}/10) 🫂`;
-            if(pelukCount >= 10) {
-                b.innerText = "Terkirim! 🚀 Lanjut";
-                b.onclick = () => nextStage(4);
+        // S4: Cium
+        let ciumCount = 0;
+        function clickCium() {
+            ciumCount++;
+            document.getElementById('btn-cium').innerText = `Kecup! (${ciumCount}/15) 💋`;
+            if(ciumCount >= 15) {
+                document.getElementById('btn-cium').innerText = "Manis Banget! Lanjut! 🚀";
+                document.getElementById('btn-cium').onclick = () => nextStage(4);
             }
         }
 
-        // Stage 5: Kangen
-        function updateKangen(v) {
-            const t = document.getElementById('kangen-text');
-            if(v > 90) {
-                t.innerText = "AKU JUGA KANGEN BANGETTT!! ❤️";
-                document.getElementById('btn-next5').classList.remove('hidden');
-            }
+        // S5: Gacha
+        function bukaGacha(teks) {
+            document.getElementById('teks-gacha').innerText = teks;
+            document.getElementById('btn-s5').classList.remove('hidden');
         }
 
-        // Stage 8: Charge
-        let fillInterval;
-        let fillVal = 0;
-        function startFill() {
-            fillInterval = setInterval(() => {
-                fillVal += 2;
-                document.getElementById('fill-bar').style.width = fillVal + '%';
-                if(fillVal >= 100) {
-                    clearInterval(fillInterval);
-                    document.getElementById('btn-charge').innerText = "Full Energy! ❤️";
-                    setTimeout(() => nextStage(8), 500);
+        // S6: Janji
+        function cekJanji() {
+            const cb = document.querySelectorAll('.checkbox-group input');
+            let allChecked = true;
+            cb.forEach(c => { if(!c.checked) allChecked = false; });
+            if(allChecked) document.getElementById('btn-s6').classList.remove('hidden');
+            else document.getElementById('btn-s6').classList.add('hidden');
+        }
+
+        // S7: Charge
+        let chargeInt, chargeVal = 0;
+        function mulaiCharge() {
+            document.getElementById('btn-tahan').innerText = "Tahan Terus! ⚡";
+            chargeInt = setInterval(() => {
+                chargeVal += 3;
+                document.getElementById('bar-energi').style.width = chargeVal + "%";
+                if(chargeVal >= 100) {
+                    clearInterval(chargeInt);
+                    document.getElementById('btn-tahan').innerText = "Energi Penuh! ❤️";
+                    document.getElementById('btn-tahan').ontouchstart = null;
+                    document.getElementById('btn-tahan').onmousedown = null;
+                    setTimeout(() => nextStage(7), 800);
                 }
             }, 50);
         }
-        function stopFill() { clearInterval(fillInterval); }
-
-        // Stickers
-        function createStickers() {
-            const container = document.getElementById('stickers');
-            const icons = ['💖', '🥰', '✨', '🌸', '🧸', '🍭'];
-            setInterval(() => {
-                const s = document.createElement('div');
-                s.className = 'sticker';
-                s.innerText = icons[Math.floor(Math.random()*icons.length)];
-                s.style.left = Math.random()*100 + 'vw';
-                container.appendChild(s);
-                setTimeout(() => s.remove(), 8000);
-            }, 600);
+        function stopCharge() { 
+            clearInterval(chargeInt); 
+            if(chargeVal < 100) document.getElementById('btn-tahan').innerText = "Yah Kok Dilepas? Tahan Lagi! 🥺";
         }
 
-        // DOWNLOAD SERTIFIKAT
+        // S10: Download PDF/PNG
         function downloadCert() {
+            const btn = document.querySelector('button[onclick="downloadCert()"]');
+            btn.innerText = "Memproses...";
             const area = document.getElementById('certificate-area');
-            html2canvas(area, {
-                backgroundColor: "#fff0f6",
-                scale: 3 // Kualitas tinggi
-            }).then(canvas => {
+            html2canvas(area, { scale: 3, backgroundColor: "#ffffff" }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'Sertifikat_Ayu.png';
-                link.href = canvas.toDataURL();
+                link.href = canvas.toDataURL('image/png');
                 link.click();
+                btn.innerText = "⬇️ Unduh Sertifikat (PNG)";
             });
         }
     </script>
