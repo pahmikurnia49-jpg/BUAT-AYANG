@@ -17,11 +17,13 @@
             background: radial-gradient(circle at center, #ffe6f2 0%, #ffcbe0 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             color: #5a3d5c;
             position: relative;
+            padding-bottom: 100px; /* Space for spotify */
         }
 
         /* Floating Stickers (Emojis) */
@@ -49,7 +51,7 @@
 
         /* Container Settings */
         .container {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(255, 153, 194, 0.3);
@@ -57,18 +59,19 @@
             max-width: 600px;
             width: 90%;
             z-index: 10;
-            position: relative;
-            display: none; /* Hidden by default */
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .active-step {
-            display: block;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
         }
 
         h1, h2 {
@@ -76,12 +79,14 @@
             color: #ff66a3;
             margin-bottom: 20px;
             letter-spacing: 1px;
+            line-height: 1.3;
         }
 
         p {
             font-size: 1.2rem;
             margin-bottom: 25px;
             font-weight: 600;
+            line-height: 1.6;
         }
 
         /* Buttons */
@@ -104,10 +109,33 @@
             transform: scale(1.05);
         }
 
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* Dodging Button specific */
         #btn-salah {
             background: #a6a6a6;
             box-shadow: 0 5px 15px rgba(166, 166, 166, 0.4);
+        }
+
+        /* Mini Game Hearts */
+        .hearts-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .heart-box {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .heart-box:hover {
+            transform: scale(1.2) rotate(10deg);
         }
 
         /* Slider */
@@ -115,6 +143,25 @@
             width: 100%;
             margin: 20px 0;
             accent-color: #ff66a3;
+        }
+
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff4d94;
+            cursor: pointer;
+        }
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            accent-color: #ff66a3;
+            cursor: pointer;
         }
 
         /* Progress Bar */
@@ -125,6 +172,7 @@
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 20px;
+            border: 2px solid #ffb3d1;
         }
 
         .progress-fill {
@@ -141,7 +189,9 @@
             border: 8px solid #ffb3d1;
             border-radius: 15px;
             position: relative;
-            margin-top: 20px;
+            margin-top: 10px;
+            max-height: 60vh;
+            overflow-y: auto;
         }
 
         .certificate-inner {
@@ -159,7 +209,7 @@
         }
 
         .cert-name {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-family: 'Fredoka One', cursive;
             color: #e6005c;
             margin: 20px 0;
@@ -169,7 +219,7 @@
         }
 
         .cert-desc {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #5a3d5c;
             line-height: 1.5;
             font-weight: 700;
@@ -182,8 +232,22 @@
             font-style: italic;
         }
 
-        .spotify-container {
-            margin-top: 25px;
+        /* Fixed Spotify Container at the Bottom */
+        .spotify-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            z-index: 100;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            height: 100px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
         }
 
         .hide {
@@ -197,76 +261,110 @@
 
     <div class="container active-step" id="step-1">
         <h1>Haii Ayanggg! 👋🧸</h1>
-        <p>Ada sesuatu yang spesial nih buat kamu. Tapi nggak semudah itu buat buka kado ini! Kamu harus lewatin <b>Ujian Kebucinan</b> dulu. Berani?</p>
-        <button onclick="nextStep(2)">Mulai Ujian! 🚀</button>
+        <p>Sebelum kita mulai, klik tombol <b>Play</b> di lagu bawah ini dulu ya biar suasananya makin romantis! 🎧💕</p>
+        <button onclick="nextStep(2)">Udah Di-Play! Lanjut 🚀</button>
     </div>
 
     <div class="container" id="step-2">
-        <h2>Pertanyaan #1 🧐</h2>
-        <p>Siapa cewek paling cantik, paling gemesin, dan paling lucuuu di seluruh alam semesta?</p>
-        <div>
-            <button onclick="nextStep(3)">Risma Ayu Nursyifa Dong! 🥰</button>
-            <button id="btn-salah" onmouseover="dodgeButton()" onclick="alertSalah()">Orang Lain 😒</button>
-        </div>
+        <h2>Siap-siap ya... 🤫</h2>
+        <p>Ada kado spesial di ujung jalan ini. Tapi kamu harus lewatin <b>Ujian Kebucinan Level Maksimal</b> dulu biar bisa buka kadonya. Berani nerima tantangan?</p>
+        <button onclick="nextStep(3)">Pasti Berani Dong! 😎</button>
     </div>
 
     <div class="container" id="step-3">
-        <h2>Pertanyaan #2 🥺</h2>
-        <p>Seberapa kangen kamu sama aku hari ini?</p>
-        <p id="slider-text" style="color: #ff66a3; font-size: 1.5rem;">Geser dong!</p>
-        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateSlider()">
-        <br>
-        <button id="btn-lanjut-3" class="hide" onclick="nextStep(4)">Nah Gitu Dong! Lanjut 😘</button>
+        <h2>Pertanyaan #1 🧐</h2>
+        <p>Dari miliaran manusia di bumi, siapa cewek paling cantik, gemesin, dan bikin aku kangen terus?</p>
+        <div>
+            <button onclick="nextStep(4)">Risma Ayu Nursyifa! 🥰</button>
+            <button id="btn-salah" onmouseover="dodgeButton()" onclick="alertSalah()">Bukan Risma 😒</button>
+        </div>
     </div>
 
     <div class="container" id="step-4">
-        <h2>Ujian Terakhir! ✨</h2>
-        <p>Buktiin kalau kamu emang punya senyum paling manis! Coba senyum yang lebar, trus klik tombol di bawah ini 5 kali!</p>
-        <button onclick="clickSenyum()" id="btn-senyum">Klik Sambil Senyum! (0/5) 😊</button>
+        <h2>Pertanyaan #2 🎁</h2>
+        <p>Coba tebak, di kotak hati mana letak cinta aku ke kamu?</p>
+        <div class="hearts-container">
+            <div class="heart-box" onclick="cekHati(false)">💝</div>
+            <div class="heart-box" onclick="cekHati(true)">💖</div>
+            <div class="heart-box" onclick="cekHati(false)">💘</div>
+        </div>
+        <p id="pesan-hati" style="font-size: 1rem; color: #ff66a3;"></p>
+        <button id="btn-lanjut-4" class="hide" onclick="nextStep(5)">Lanjut ah! 🏃‍♀️</button>
     </div>
 
     <div class="container" id="step-5">
+        <h2>Pertanyaan #3 🥺</h2>
+        <p>Hari ini kamu seberapa kangen sih sama aku?</p>
+        <p id="slider-text" style="color: #ff66a3; font-size: 1.5rem;">Coba geser meternya!</p>
+        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateSlider()">
+        <br>
+        <button id="btn-lanjut-5" class="hide" onclick="nextStep(6)">Hehe, Me Too! 😘 Lanjut</button>
+    </div>
+
+    <div class="container" id="step-6">
+        <h2>Pertanyaan #4 📝</h2>
+        <p>Janji dulu sama aku satu hal sebelum kita ke tahap akhir...</p>
+        <label class="checkbox-container">
+            <input type="checkbox" id="janji-box" onchange="cekJanji()">
+            Aku janji bakal bahagia terus! ✨
+        </label>
+        <button id="btn-lanjut-6" disabled onclick="nextStep(7)">Janji Ditepati! 🤝</button>
+    </div>
+
+    <div class="container" id="step-7">
+        <h2>Sebentar... 💌</h2>
+        <p style="text-align: justify; font-size: 1.1rem;">Aku cuma mau bilang makasih karena kamu selalu ada. Makasih udah jadi Risma yang aku kenal, yang senyumnya selalu bisa bikin hari aku yang tadinya berantakan jadi tenang lagi. Tolong jangan pernah ubah senyum manis kamu itu ya? ❤️</p>
+        <button onclick="nextStep(8)">Awww, so sweet! 🥺 Lanjut</button>
+    </div>
+
+    <div class="container" id="step-8">
+        <h2>Ujian Terakhir! ✨</h2>
+        <p>Buktiin kalau senyum kamu emang paling manis! Coba senyum yang paling lebar sekarang, trus klik tombol ini 5 kali sambil tetep senyum!</p>
+        <button onclick="clickSenyum()" id="btn-senyum">Klik Sambil Senyum! (0/5) 😊</button>
+    </div>
+
+    <div class="container" id="step-9">
         <h2>Memproses Data... ⚙️</h2>
-        <p id="loading-text">Menghubungi Pusat Kebucinan Nasional...</p>
+        <p id="loading-text">Menganalisis kadar kemanisan senyuman...</p>
         <div class="progress-bar">
             <div class="progress-fill" id="progress-fill"></div>
         </div>
     </div>
 
-    <div class="container" id="step-6" style="max-width: 700px;">
-        <h1 style="font-size: 1.8rem;">Yeay! Kamu Lulus Ujian! 🎉</h1>
+    <div class="container" id="step-10" style="max-width: 700px; padding: 20px;">
+        <h1 style="font-size: 1.8rem; margin-bottom: 10px;">Yeay! Kamu Lulus Ujian! 🎉</h1>
+        <p style="font-size: 1rem; margin-bottom: 15px;">Ini kado spesial buat kamu sayang...</p>
         
         <div class="certificate-wrapper">
             <div class="certificate-inner">
                 <div class="cert-title">Sertifikat Penghargaan</div>
-                <p>Dengan bangga dan penuh cinta, sertifikat ini diberikan kepada:</p>
+                <p style="margin-bottom: 0;">Dengan bangga dan penuh cinta, sertifikat ini diberikan kepada:</p>
                 <div class="cert-name">Risma Ayu Nursyifa</div>
                 <div class="cert-desc">
                     Sebagai: <br>
-                    <span style="font-size: 1.8rem; color: #ff4d94; font-family: 'Fredoka One', cursive; display: inline-block; margin: 10px 0;">"Pemilik Senyuman Termanis"</span><br>
+                    <span style="font-size: 1.6rem; color: #ff4d94; font-family: 'Fredoka One', cursive; display: inline-block; margin: 10px 0;">"Pemilik Senyuman Termanis"</span><br>
                     Yang telah berhasil meluluhkan hati saya seutuhnya, tanpa syarat, setiap hari. ❤️
                 </div>
                 <div class="cert-footer">Disahkan oleh: Hati yang selalu mencintaimu ✨</div>
             </div>
         </div>
+    </div>
 
-        <div class="spotify-container">
-            <p style="margin-top: 15px; font-size: 1rem; margin-bottom: 10px;">Dengerin ini ya sayangku... 🎧</p>
-            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1WxQigdT2EPDtpGW3eJA5c?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
+    <div class="spotify-fixed">
+        <iframe data-testid="embed-iframe" style="border-radius:12px; transform: translateY(-12px);" src="https://open.spotify.com/embed/track/1WxQigdT2EPDtpGW3eJA5c?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
     <script>
         // --- Floating Stickers Generator ---
-        const emojis = ['💖', '🌸', '🧸', '✨', '🎀', '🥰', '🦋', '🍓'];
+        const emojis = ['💖', '🌸', '🧸', '✨', '🎀', '🥰', '🦋', '🍓', '💌', '💫'];
         const stickersContainer = document.getElementById('stickers-container');
         
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
             let sticker = document.createElement('div');
             sticker.classList.add('sticker');
             sticker.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             sticker.style.left = Math.random() * 100 + 'vw';
-            sticker.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            sticker.style.animationDuration = (Math.random() * 6 + 6) + 's';
             sticker.style.animationDelay = Math.random() * 5 + 's';
             sticker.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
             stickersContainer.appendChild(sticker);
@@ -274,45 +372,65 @@
 
         // --- Step Navigation ---
         function nextStep(step) {
-            // Hide all steps
             const steps = document.querySelectorAll('.container');
             steps.forEach(s => s.classList.remove('active-step'));
             
-            // Show target step
             document.getElementById('step-' + step).classList.add('active-step');
 
-            // Specific logic for Step 5 (Loading)
-            if (step === 5) {
+            if (step === 9) {
                 startLoading();
             }
         }
 
-        // --- Step 2 Logic (Dodging Button) ---
+        // --- Step 3: Dodging Button ---
         function dodgeButton() {
             const btn = document.getElementById('btn-salah');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+            const container = document.getElementById('step-3');
+            
+            // Batasi gerakan kabur hanya di dalam container biar gak hilang dari layar
+            const maxX = container.offsetWidth - btn.offsetWidth - 40;
+            const maxY = container.offsetHeight - btn.offsetHeight - 40;
+            
+            const x = Math.max(0, Math.random() * maxX);
+            const y = Math.max(0, Math.random() * maxY);
             
             btn.style.position = 'absolute';
-            btn.style.left = `${Math.abs(x)}px`;
-            btn.style.top = `${Math.abs(y)}px`;
+            btn.style.left = `${x}px`;
+            btn.style.top = `${y}px`;
         }
 
         function alertSalah() {
-            alert("Tettoooot! Ketangkep, tapi tetep salah! Cuma Risma yang paling cantik! 😝");
+            alert("Ih dibilangin cuma Risma yang paling cantik! Jangan mencet ini dong 😝");
         }
 
-        // --- Step 3 Logic (Slider) ---
+        // --- Step 4: Pilih Hati ---
+        let percobaanHati = 0;
+        function cekHati(benar) {
+            const pesan = document.getElementById('pesan-hati');
+            const btn = document.getElementById('btn-lanjut-4');
+            
+            if (benar) {
+                pesan.innerText = "YAY! Bener banget, cinta aku full buat kamu! 🎉💖";
+                btn.classList.remove('hide');
+            } else {
+                percobaanHati++;
+                if(percobaanHati === 1) pesan.innerText = "Bukan yang ini sayang, coba yang lain! 🤭";
+                else if(percobaanHati === 2) pesan.innerText = "Masih salah wleee, ayo cari yang bener! 😝";
+                else pesan.innerText = "Kok zonk terus? Clue-nya: yang di tengah! 😂";
+            }
+        }
+
+        // --- Step 5: Slider Kangen ---
         function updateSlider() {
             const slider = document.getElementById('kangen-slider');
             const text = document.getElementById('slider-text');
-            const btn = document.getElementById('btn-lanjut-3');
+            const btn = document.getElementById('btn-lanjut-5');
             
             let val = slider.value;
-            if (val == 0) text.innerText = "Masa nggak kangen sih? 😢";
-            else if (val < 30) text.innerText = "Dikit doang nih? Hmmm 🤨";
-            else if (val < 70) text.innerText = "Lumayan... tapi kurang! 🤭";
-            else if (val < 100) text.innerText = "Banyaakkk! 😍";
+            if (val == 0) text.innerText = "Yah masa nol... 😢";
+            else if (val < 30) text.innerText = "Ih dikit doang? Hmmm 🤨";
+            else if (val < 60) text.innerText = "Lumayan... coba tarik lagi! 🤭";
+            else if (val < 90) text.innerText = "Banyaakkk! 😍";
             else {
                 text.innerText = "KANGEN BANGET BANGET BANGET!!! 🚀💖";
                 btn.classList.remove('hide');
@@ -323,7 +441,18 @@
             }
         }
 
-        // --- Step 4 Logic (Clicker) ---
+        // --- Step 6: Janji Checkbox ---
+        function cekJanji() {
+            const box = document.getElementById('janji-box');
+            const btn = document.getElementById('btn-lanjut-6');
+            if(box.checked) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        }
+
+        // --- Step 8: Senyum Clicker ---
         let senyumCount = 0;
         function clickSenyum() {
             senyumCount++;
@@ -331,31 +460,33 @@
             btn.innerText = `Klik Sambil Senyum! (${senyumCount}/5) 😊`;
             
             if (senyumCount >= 5) {
-                btn.innerText = "Manis Bangetttt Senyumnya! 😍 Lanjut yuk!";
-                btn.onclick = function() { nextStep(5); };
+                btn.innerText = "Udah Terverifikasi Manis! 😍 Lanjut yuk!";
+                btn.onclick = function() { nextStep(9); };
             }
         }
 
-        // --- Step 5 Logic (Fake Loading) ---
+        // --- Step 9: Fake Loading ---
         function startLoading() {
             const fill = document.getElementById('progress-fill');
             const text = document.getElementById('loading-text');
             let width = 0;
             
             const texts = [
-                "Menghubungi Pusat Kebucinan Nasional...",
-                "Mengukur kadar gula pada senyuman...",
-                "Memverifikasi kecantikan alami...",
-                "Mencetak Sertifikat Kebanggaan...",
-                "Selesai! ✨"
+                "Menganalisis kadar kemanisan senyuman...",
+                "Menyinkronkan data dengan hatiku...",
+                "Memverifikasi keimutan tingkat dewa...",
+                "Mencetak Sertifikat Paling Spesial...",
+                "Sedikit lagi selesai sayang... ✨",
+                "Berhasil! 🎉"
             ];
 
             let textIndex = 0;
+            // Durasinya dibuat lebih lama biar deg-degan (total sekitar 8-9 detik)
             let interval = setInterval(() => {
-                width += 1;
+                width += 0.5; // Naiknya lebih lambat
                 fill.style.width = width + '%';
 
-                if (width % 20 === 0 && textIndex < texts.length) {
+                if (width % 18 === 0 && textIndex < texts.length) {
                     text.innerText = texts[textIndex];
                     textIndex++;
                 }
@@ -363,10 +494,12 @@
                 if (width >= 100) {
                     clearInterval(interval);
                     setTimeout(() => {
-                        nextStep(6);
+                        nextStep(10);
+                        // Optional: Hilangkan spotify bar atau biarkan saja
+                        // document.querySelector('.spotify-fixed').style.display = 'none';
                     }, 1000);
                 }
-            }, 50); // Takes about 5 seconds total
+            }, 40); 
         }
     </script>
 </body>
