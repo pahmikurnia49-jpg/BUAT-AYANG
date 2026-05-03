@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Risma Ayu Nursyifa 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: radial-gradient(circle at center, #ffe6f2 0%, #ffcbe0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #5a3d5c;
+            position: relative;
+        }
+
+        /* Floating Stickers (Emojis) */
+        .stickers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Container Settings */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 153, 194, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            z-index: 10;
+            position: relative;
+            display: none; /* Hidden by default */
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .active-step {
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1, h2 {
+            font-family: 'Fredoka One', cursive;
+            color: #ff66a3;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        button {
+            background: #ff66a3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-family: 'Fredoka One', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 102, 163, 0.4);
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #ff4d94;
+            transform: scale(1.05);
+        }
+
+        /* Dodging Button specific */
+        #btn-salah {
+            background: #a6a6a6;
+            box-shadow: 0 5px 15px rgba(166, 166, 166, 0.4);
+        }
+
+        /* Slider */
+        input[type=range] {
+            width: 100%;
+            margin: 20px 0;
+            accent-color: #ff66a3;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ffe6f2;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #ff66a3;
+            transition: width 0.1s linear;
+        }
+
+        /* Certificate Design */
+        .certificate-wrapper {
+            background: #fff;
+            padding: 15px;
+            border: 8px solid #ffb3d1;
+            border-radius: 15px;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .certificate-inner {
+            border: 3px dashed #ff66a3;
+            padding: 30px 20px;
+            border-radius: 10px;
+            background: #fffcfd;
+        }
+
+        .cert-title {
+            font-size: 2rem;
+            color: #ff4d94;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .cert-name {
+            font-size: 2.5rem;
+            font-family: 'Fredoka One', cursive;
+            color: #e6005c;
+            margin: 20px 0;
+            text-decoration: underline;
+            text-decoration-color: #ffb3d1;
+            text-underline-offset: 8px;
+        }
+
+        .cert-desc {
+            font-size: 1.2rem;
+            color: #5a3d5c;
+            line-height: 1.5;
+            font-weight: 700;
+        }
+
+        .cert-footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #ff99c2;
+            font-style: italic;
+        }
+
+        .spotify-container {
+            margin-top: 25px;
+        }
+
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stickers" id="stickers-container"></div>
+
+    <div class="container active-step" id="step-1">
+        <h1>Haii Ayanggg! 👋🧸</h1>
+        <p>Ada sesuatu yang spesial nih buat kamu. Tapi nggak semudah itu buat buka kado ini! Kamu harus lewatin <b>Ujian Kebucinan</b> dulu. Berani?</p>
+        <button onclick="nextStep(2)">Mulai Ujian! 🚀</button>
+    </div>
+
+    <div class="container" id="step-2">
+        <h2>Pertanyaan #1 🧐</h2>
+        <p>Siapa cewek paling cantik, paling gemesin, dan paling lucuuu di seluruh alam semesta?</p>
+        <div>
+            <button onclick="nextStep(3)">Risma Ayu Nursyifa Dong! 🥰</button>
+            <button id="btn-salah" onmouseover="dodgeButton()" onclick="alertSalah()">Orang Lain 😒</button>
+        </div>
+    </div>
+
+    <div class="container" id="step-3">
+        <h2>Pertanyaan #2 🥺</h2>
+        <p>Seberapa kangen kamu sama aku hari ini?</p>
+        <p id="slider-text" style="color: #ff66a3; font-size: 1.5rem;">Geser dong!</p>
+        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateSlider()">
+        <br>
+        <button id="btn-lanjut-3" class="hide" onclick="nextStep(4)">Nah Gitu Dong! Lanjut 😘</button>
+    </div>
+
+    <div class="container" id="step-4">
+        <h2>Ujian Terakhir! ✨</h2>
+        <p>Buktiin kalau kamu emang punya senyum paling manis! Coba senyum yang lebar, trus klik tombol di bawah ini 5 kali!</p>
+        <button onclick="clickSenyum()" id="btn-senyum">Klik Sambil Senyum! (0/5) 😊</button>
+    </div>
+
+    <div class="container" id="step-5">
+        <h2>Memproses Data... ⚙️</h2>
+        <p id="loading-text">Menghubungi Pusat Kebucinan Nasional...</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <div class="container" id="step-6" style="max-width: 700px;">
+        <h1 style="font-size: 1.8rem;">Yeay! Kamu Lulus Ujian! 🎉</h1>
+        
+        <div class="certificate-wrapper">
+            <div class="certificate-inner">
+                <div class="cert-title">Sertifikat Penghargaan</div>
+                <p>Dengan bangga dan penuh cinta, sertifikat ini diberikan kepada:</p>
+                <div class="cert-name">Risma Ayu Nursyifa</div>
+                <div class="cert-desc">
+                    Sebagai: <br>
+                    <span style="font-size: 1.8rem; color: #ff4d94; font-family: 'Fredoka One', cursive; display: inline-block; margin: 10px 0;">"Pemilik Senyuman Termanis"</span><br>
+                    Yang telah berhasil meluluhkan hati saya seutuhnya, tanpa syarat, setiap hari. ❤️
+                </div>
+                <div class="cert-footer">Disahkan oleh: Hati yang selalu mencintaimu ✨</div>
+            </div>
+        </div>
+
+        <div class="spotify-container">
+            <p style="margin-top: 15px; font-size: 1rem; margin-bottom: 10px;">Dengerin ini ya sayangku... 🎧</p>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1WxQigdT2EPDtpGW3eJA5c?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- Floating Stickers Generator ---
+        const emojis = ['💖', '🌸', '🧸', '✨', '🎀', '🥰', '🦋', '🍓'];
+        const stickersContainer = document.getElementById('stickers-container');
+        
+        for (let i = 0; i < 20; i++) {
+            let sticker = document.createElement('div');
+            sticker.classList.add('sticker');
+            sticker.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            sticker.style.left = Math.random() * 100 + 'vw';
+            sticker.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            sticker.style.animationDelay = Math.random() * 5 + 's';
+            sticker.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            stickersContainer.appendChild(sticker);
+        }
+
+        // --- Step Navigation ---
+        function nextStep(step) {
+            // Hide all steps
+            const steps = document.querySelectorAll('.container');
+            steps.forEach(s => s.classList.remove('active-step'));
+            
+            // Show target step
+            document.getElementById('step-' + step).classList.add('active-step');
+
+            // Specific logic for Step 5 (Loading)
+            if (step === 5) {
+                startLoading();
+            }
+        }
+
+        // --- Step 2 Logic (Dodging Button) ---
+        function dodgeButton() {
+            const btn = document.getElementById('btn-salah');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+            
+            btn.style.position = 'absolute';
+            btn.style.left = `${Math.abs(x)}px`;
+            btn.style.top = `${Math.abs(y)}px`;
+        }
+
+        function alertSalah() {
+            alert("Tettoooot! Ketangkep, tapi tetep salah! Cuma Risma yang paling cantik! 😝");
+        }
+
+        // --- Step 3 Logic (Slider) ---
+        function updateSlider() {
+            const slider = document.getElementById('kangen-slider');
+            const text = document.getElementById('slider-text');
+            const btn = document.getElementById('btn-lanjut-3');
+            
+            let val = slider.value;
+            if (val == 0) text.innerText = "Masa nggak kangen sih? 😢";
+            else if (val < 30) text.innerText = "Dikit doang nih? Hmmm 🤨";
+            else if (val < 70) text.innerText = "Lumayan... tapi kurang! 🤭";
+            else if (val < 100) text.innerText = "Banyaakkk! 😍";
+            else {
+                text.innerText = "KANGEN BANGET BANGET BANGET!!! 🚀💖";
+                btn.classList.remove('hide');
+            }
+
+            if (val < 100) {
+                btn.classList.add('hide');
+            }
+        }
+
+        // --- Step 4 Logic (Clicker) ---
+        let senyumCount = 0;
+        function clickSenyum() {
+            senyumCount++;
+            const btn = document.getElementById('btn-senyum');
+            btn.innerText = `Klik Sambil Senyum! (${senyumCount}/5) 😊`;
+            
+            if (senyumCount >= 5) {
+                btn.innerText = "Manis Bangetttt Senyumnya! 😍 Lanjut yuk!";
+                btn.onclick = function() { nextStep(5); };
+            }
+        }
+
+        // --- Step 5 Logic (Fake Loading) ---
+        function startLoading() {
+            const fill = document.getElementById('progress-fill');
+            const text = document.getElementById('loading-text');
+            let width = 0;
+            
+            const texts = [
+                "Menghubungi Pusat Kebucinan Nasional...",
+                "Mengukur kadar gula pada senyuman...",
+                "Memverifikasi kecantikan alami...",
+                "Mencetak Sertifikat Kebanggaan...",
+                "Selesai! ✨"
+            ];
+
+            let textIndex = 0;
+            let interval = setInterval(() => {
+                width += 1;
+                fill.style.width = width + '%';
+
+                if (width % 20 === 0 && textIndex < texts.length) {
+                    text.innerText = texts[textIndex];
+                    textIndex++;
+                }
+
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        nextStep(6);
+                    }, 1000);
+                }
+            }, 50); // Takes about 5 seconds total
+        }
+    </script>
+</body>
+</html>
