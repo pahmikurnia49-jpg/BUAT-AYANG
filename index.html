@@ -70,6 +70,23 @@
         .gift-box { font-size: 5rem; animation: pulse 1.5s infinite; cursor: pointer; margin-bottom: 20px;}
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
 
+        /* Stage 5 Amplop Gacha */
+        .gacha-box { display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;}
+        .gacha-item { 
+            font-size: 4rem; cursor: pointer; transition: 0.3s; 
+            animation: float 2.5s infinite ease-in-out;
+        }
+        .gacha-item:nth-child(2) { animation-delay: 0.2s; }
+        .gacha-item:nth-child(3) { animation-delay: 0.4s; }
+        .gacha-item:active { transform: scale(0.8); }
+        @keyframes float { 0% {transform: translateY(0px);} 50% {transform: translateY(-10px);} 100% {transform: translateY(0px);} }
+        
+        #teks-gacha {
+            background: #fff5f8; padding: 15px; border-radius: 10px; border: 1px dashed var(--secondary);
+            font-weight: 500; color: var(--text); font-size: 0.9rem; line-height: 1.6; text-align: left;
+            margin-bottom: 15px; display: none;
+        }
+
         /* Stage 6: Checkbox Styling */
         .checkbox-group { text-align: left; margin-bottom: 20px; background: #fef0f5; padding: 15px; border-radius: 15px; border: 1px solid var(--secondary); }
         .checkbox-group label { display: flex; align-items: flex-start; margin: 12px 0; font-size: 0.85rem; cursor: pointer; line-height: 1.3; }
@@ -153,28 +170,30 @@
 
     <div class="container" id="stage3">
         <h1>Stage 3: Ujian Kegigihan</h1>
-        <p>Tangkep tombolnya kalau emang sayang! (Awas licin 😝)</p>
+        <p>Tangkep tombolnya kalau emang sayang! Harus gesit ya! 😝</p>
         <p id="tease-text" style="color:var(--primary); font-weight:bold; height:20px; font-size:0.8rem;"></p>
-        <div style="height: 180px; position: relative;" id="area-lari">
-            <button id="btn-lari" style="position:absolute; width:130px; left:50%; transform:translateX(-50%);" ontouchstart="lari()" onmouseover="lari()">Kejar Aku! 🏃‍♀️</button>
+        <div style="height: 250px; position: relative; width: 100%;" id="area-lari">
+            <button id="btn-lari" style="position:absolute; width:130px; left:50%; transform:translateX(-50%); top: 10px;" ontouchstart="lari()" onmouseover="lari()">Kejar Aku! 🏃‍♀️</button>
         </div>
     </div>
 
     <div class="container" id="stage4">
         <h1>Stage 4: Kirim Cium</h1>
-        <p>Spam 15 ciuman online buat aku dong!</p>
-        <button onclick="clickCium()" id="btn-cium" style="font-size:1.1rem; padding:15px;">Kecup! (0/15) 💋</button>
+        <p>Biar puas, kirim 100 ciuman online buat aku dong! Spam klik tombolnya!</p>
+        <button onclick="clickCium()" id="btn-cium" style="font-size:1.1rem; padding:15px; margin-bottom:5px;">Kecup! (0/100) 💋</button>
+        <p id="teks-salting" style="color:var(--primary); font-weight:bold; font-size:0.9rem; margin-top:10px; min-height: 20px;"></p>
     </div>
 
     <div class="container" id="stage5">
         <h1>Stage 5: Amplop Rahasia</h1>
+        <p>Pilih salah satu surat cinta di bawah ini buat kamu baca.</p>
         <div class="gacha-box">
-            <div class="gacha-item" onclick="bukaGacha('Kangen itu berat, biar aku aja yang nanggung, Ayang fokus senyum aja. 🥺')">✉️</div>
-            <div class="gacha-item" onclick="bukaGacha('Senyum kamu itu penyemangat paling ampuh buat aku. ☕')">✉️</div>
-            <div class="gacha-item" onclick="bukaGacha('Aku gak butuh dunia, aku cuma butuh kamu di sampingku. 🌍')">✉️</div>
+            <div class="gacha-item" onclick="bukaGacha(0)">💌</div>
+            <div class="gacha-item" onclick="bukaGacha(1)">💌</div>
+            <div class="gacha-item" onclick="bukaGacha(2)">💌</div>
         </div>
-        <p id="teks-gacha" style="font-weight:bold; color:var(--primary); min-height: 50px; font-size: 0.9rem;"></p>
-        <button id="btn-s5" class="hidden" onclick="nextStage(5)">Salting Brutal! Lanjut 😘</button>
+        <div id="teks-gacha"></div>
+        <button id="btn-s5" class="hidden" onclick="nextStage(5)">Melted Brutal! Lanjut 😘</button>
     </div>
 
     <div class="container" id="stage6">
@@ -204,9 +223,13 @@
     <div class="container" id="stage8">
         <h1>Stage 8: Cek Fakta</h1>
         <p>Apa sih yang paling bikin aku sayang banget sama kamu?</p>
-        <button class="btn-outline" onclick="showNotif('Betul, tapi ada yang lebih luas lagi!', '🥰')">Sifat Baiknya</button>
-        <button class="btn-outline" onclick="showNotif('Betul, tapi bukan cuma itu!', '👀')">Mata Indahnya</button>
-        <button onclick="nextStage(8)">Semua Yang Ada Di Dirimu 💖</button>
+        <button class="btn-outline" onclick="showNotif('Betul sih, tapi ada yang lebih luas lagi!', '🥰')">Sifat Baiknya</button>
+        <button class="btn-outline" onclick="showNotif('Betul, mata kamu emang bikin candu, tapi ada lagi!', '👀')">Mata Indahnya</button>
+        <button class="btn-outline" onclick="showNotif('Ketulusanmu emang luar biasa, tapi bukan cuma itu!', '🤍')">Ketulusan Hatinya</button>
+        <button class="btn-outline" onclick="showNotif('Perhatianmu bikin aku ngerasa dihargai banget, tapi kurang tepat!', '🥺')">Cara Dia Perhatian</button>
+        <button class="btn-outline" onclick="showNotif('Kesabaranmu ngadepin aku emang juara, tapi cari jawaban lain!', '🧘‍♀️')">Kesabarannya</button>
+        <button class="btn-outline" onclick="showNotif('Senyummu itu energi buat aku, tapi masih ada yang merangkum semuanya!', '😊')">Senyum Manisnya</button>
+        <button onclick="nextStage(8)">Semua Yang Ada Di Dirimu Tanpa Terkecuali 💖</button>
     </div>
 
     <div class="container" id="stage9">
@@ -262,43 +285,79 @@
             }, 300);
         }
 
+        // S2 Kangen
         function updateKangen(val) {
             document.getElementById('kangen-val').innerText = val + "%";
             if(val == 100) document.getElementById('btn-s2').classList.remove('hidden');
         }
 
+        // S3 Lari (Lebih liar)
         let lariCount = 0;
-        const ledekan = ["Wlee gak dapet! 😝", "Kurang cepet! 🐢", "Sini tangkep! 💨", "Dikit lagi! 😂", "Meleset! 😜", "Capek ya? ❤️"];
+        const ledekan = ["Wlee gak dapet! 😝", "Kurang cepet! 🐢", "Sini tangkep! 💨", "Dikit lagi! 😂", "Meleset! 😜", "Terus kejar cintaku! ❤️", "Ayo lariii! 🏃‍♀️"];
         function lari() {
             const btn = document.getElementById('btn-lari');
             const tease = document.getElementById('tease-text');
             lariCount++;
             tease.innerText = ledekan[Math.floor(Math.random() * ledekan.length)];
-            const x = Math.random() * (document.getElementById('area-lari').offsetWidth - 130) - (document.getElementById('area-lari').offsetWidth/2 - 65);
-            const y = Math.random() * 120;
+            
+            // Area lompatan diperbesar
+            const areaW = document.getElementById('area-lari').offsetWidth;
+            const x = (Math.random() * (areaW - 140)) - ((areaW - 140) / 2); 
+            const y = Math.random() * 200; // Lompat ke bawah lebih jauh
+            
             btn.style.transform = `translate(${x}px, ${y}px)`;
+            
             if(lariCount >= 10) {
-                btn.style.transform = "translateX(-50%)"; btn.style.top = "40px";
+                btn.style.transform = "translateX(-50%)"; btn.style.top = "80px";
                 tease.innerText = "Yey ketangkep! 🥰"; btn.innerText = "Lanjut! ❤️";
                 btn.onclick = () => nextStage(3); btn.onmouseover = null; btn.ontouchstart = null;
             }
         }
 
+        // S4 Cium (100 Clicks)
         let ciumCount = 0;
+        const saltingTexts = [
+            "",
+            "Aduh... senyum-senyum sendiri nih aku 🙈",
+            "Manis banget sih Ayangku ini 🥺",
+            "Pipi aku udah merah nih pasti 😳",
+            "Lagi dong, mumpung gratis! 😝",
+            "Bisa gila lama-lama kalau gini terus 🫠",
+            "Sayang banget sama Ayu pokoknya! ❤️",
+            "Aaaa makin klepek-klepek 🦋",
+            "Gak kuat, Ayang terlalu gemes! 😭",
+            "Dikit lagiii sayanggg! 🔥"
+        ];
         function clickCium() {
             ciumCount++;
-            document.getElementById('btn-cium').innerText = `Kecup! (${ciumCount}/15) 💋`;
-            if(ciumCount >= 15) {
-                document.getElementById('btn-cium').innerText = "Mwah! Lanjut 🚀";
+            document.getElementById('btn-cium').innerText = `Kecup! (${ciumCount}/100) 💋`;
+            
+            if (ciumCount < 100 && ciumCount % 10 === 0) {
+                let idx = ciumCount / 10;
+                document.getElementById('teks-salting').innerText = saltingTexts[idx];
+            }
+
+            if(ciumCount >= 100) {
+                document.getElementById('btn-cium').innerText = "Bibirku dower tapi bahagia! Lanjut 🚀";
+                document.getElementById('teks-salting').innerText = "Udah sayang, udahhh! Lemes lututku 😍";
                 document.getElementById('btn-cium').onclick = () => nextStage(4);
             }
         }
 
-        function bukaGacha(t) {
-            document.getElementById('teks-gacha').innerText = t;
+        // S5 Gacha Teks Panjang
+        const amplopTexts = [
+            "Bismillah...<br><br>Aku cuma mau bilang, aku bersyukur banget sama Allah. Di antara sekian banyak kemungkinan, ternyata kamu yang dikirim ke hidup aku. Risma Ayu Nursyifa, nama yang mungkin dulu asing, sekarang jadi salah satu alasan aku lebih menghargai hidup.<br><br>Kehadiran kamu bukan cuma sekadar 'ada', tapi punya arti. Dan aku percaya, ini bukan kebetulan. Terima kasih sudah hadir, ya. 🤍",
+            "Kalau boleh jujur, sebelum kenal kamu, hidup aku biasa aja… datar, gitu-gitu aja.<br><br>Tapi sejak ada kamu, semuanya berubah. Ada hal kecil yang jadi berarti, ada momen sederhana yang jadi berkesan. Kayak hidup aku nambah warna baru yang sebelumnya nggak pernah ada.<br><br>Dan anehnya, warna itu selalu ada hubungannya sama kamu, Risma Ayu Nursyifa. 🙂",
+            "Aku termasuk orang yang cukup keras sama ego sendiri. Nggak gampang nurun, nggak gampang ngalah.<br><br>Tapi kamu beda.<br><br>Tanpa aku sadari, kamu bisa bikin aku berubah. Bukan karena dipaksa, tapi karena aku memang mau. Kamu bikin aku ngerti rasanya sayang yang beneran… yang nggak cuma sekadar kata.<br><br>Dan mungkin ini pertama kalinya aku ngerasa, aku benar-benar jatuh cinta. Sama kamu, Risma Ayu Nursyifa."
+        ];
+        function bukaGacha(idx) {
+            const wadah = document.getElementById('teks-gacha');
+            wadah.innerHTML = amplopTexts[idx];
+            wadah.style.display = "block";
             document.getElementById('btn-s5').classList.remove('hidden');
         }
 
+        // S6 Janji
         function cekJanji() {
             const cb = document.querySelectorAll('.checkbox-group input');
             let all = true;
@@ -307,6 +366,7 @@
             else document.getElementById('btn-s6').classList.add('hidden');
         }
 
+        // S7 Charge
         let chargeVal = 0, chargeInt;
         function mulaiCharge() {
             chargeInt = setInterval(() => {
@@ -320,6 +380,7 @@
         }
         function stopCharge() { clearInterval(chargeInt); }
 
+        // S10 Download
         function downloadCert() {
             const btn = document.getElementById('btn-download');
             btn.innerText = "⏳ Sedang Memproses...";
