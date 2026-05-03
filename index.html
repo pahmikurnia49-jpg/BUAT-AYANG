@@ -3,419 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Untuk Ayang Ayu 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Spesial Buat Ayang 💖</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        :root {
+            --pink-dark: #ff4d94;
+            --pink-light: #ffb3d1;
+            --bg-color: #fff0f6;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background: radial-gradient(circle at center, #ffe6f2 0%, #ffcbe0 100%);
+            background: var(--bg-color);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             color: #5a3d5c;
-            position: relative;
         }
 
-        /* Floating Stickers (Emojis) */
+        /* Floating Stickers */
         .stickers {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
         }
-
         .sticker {
-            position: absolute;
-            font-size: 2rem;
-            animation: floatUp 10s linear infinite;
-            opacity: 0.7;
+            position: absolute; font-size: 2rem;
+            animation: floatUp 8s linear infinite; opacity: 0.6;
         }
-
         @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
             100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Container Settings */
+        /* Container */
         .container {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px 20px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(255, 153, 194, 0.3);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 102, 163, 0.2);
             text-align: center;
-            max-width: 500px;
+            max-width: 450px;
             width: 90%;
             z-index: 10;
-            position: relative;
             display: none;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: fadeIn 0.5s ease-out;
         }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        .active-step {
-            display: block;
-        }
+        h1 { font-family: 'Fredoka One', cursive; color: var(--pink-dark); margin-bottom: 15px; }
+        p { font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; line-height: 1.4; }
 
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            color: #ff66a3;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        h2 {
-            font-family: 'Fredoka One', cursive;
-            color: #ff66a3;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        /* Buttons */
         button {
-            background: #ff66a3;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            font-family: 'Fredoka One', cursive;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 102, 163, 0.4);
-            margin: 8px;
-            width: 100%;
-            max-width: 250px;
+            background: var(--pink-dark); color: white; border: none;
+            padding: 12px 20px; font-size: 1rem; font-family: 'Fredoka One', cursive;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 102, 163, 0.3);
+            width: 100%; max-width: 280px; margin: 10px 0;
         }
+        button:hover { transform: scale(1.05); background: #e60073; }
 
-        button:hover {
-            background: #ff4d94;
-            transform: scale(1.05);
-        }
-
-        /* Dodging Button specific */
-        #btn-salah {
-            background: #a6a6a6;
-            box-shadow: 0 5px 15px rgba(166, 166, 166, 0.4);
-        }
-
-        /* Slider */
-        input[type=range] {
-            width: 100%;
-            margin: 20px 0;
-            accent-color: #ff66a3;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #ffe6f2;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #ff66a3;
-            transition: width 0.1s linear;
-        }
-
-        /* Certificate Design */
-        .certificate-wrapper {
-            background: #fff;
-            padding: 10px;
-            border: 6px solid #ffb3d1;
-            border-radius: 15px;
-            position: relative;
-            margin-top: 15px;
-        }
-
-        .certificate-inner {
-            border: 2px dashed #ff66a3;
-            padding: 20px 10px;
-            border-radius: 10px;
-            background: #fffcfd;
-        }
-
-        .cert-title {
-            font-size: 1.5rem;
-            color: #ff4d94;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .cert-name {
-            font-size: 2.2rem;
-            font-family: 'Fredoka One', cursive;
-            color: #e6005c;
-            margin: 15px 0;
-            text-decoration: underline;
-            text-decoration-color: #ffb3d1;
-            text-underline-offset: 8px;
-        }
-
-        .cert-desc {
-            font-size: 1rem;
-            color: #5a3d5c;
-            line-height: 1.4;
-            font-weight: 700;
-        }
-
-        .cert-footer {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: #ff99c2;
-            font-style: italic;
-        }
-
-        /* Audio Player Styling */
-        .audio-container {
-            margin-top: 25px;
-            background: #ffe6f2;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(255, 102, 163, 0.2);
-        }
+        /* Khusus Input & Games */
+        input[type=range] { width: 100%; accent-color: var(--pink-dark); margin: 15px 0; }
+        .hidden { display: none; }
         
-        audio {
-            width: 100%;
-            height: 40px;
-            outline: none;
+        /* Sertifikat Elegant Style */
+        #certificate-area {
+            background: white; padding: 20px; border: 12px double var(--pink-light);
+            border-radius: 10px; position: relative; margin-bottom: 20px;
+            color: #333; overflow: hidden;
         }
+        .cert-header { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--pink-dark); }
+        .cert-name { 
+            font-family: 'Great Vibes', cursive; font-size: 2.8rem; 
+            margin: 15px 0; color: #d63384; border-bottom: 2px solid var(--pink-light);
+            display: inline-block; padding: 0 20px;
+        }
+        .cert-body { font-weight: bold; font-size: 0.95rem; line-height: 1.6; }
 
-        .hide {
-            display: none !important;
-        }
+        /* Progress Dots */
+        .dots { display: flex; justify-content: center; margin-top: 20px; gap: 5px; }
+        .dot { width: 8px; height: 8px; background: #ddd; border-radius: 50%; }
+        .dot.active { background: var(--pink-dark); width: 20px; border-radius: 10px; }
 
-        /* Mobile Adjustments */
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-            }
-            .cert-name {
-                font-size: 1.8rem;
-            }
-            .cert-desc {
-                font-size: 0.9rem;
-            }
-            .cert-desc span {
-                font-size: 1.4rem !important;
-            }
-        }
+        #btn-lari { position: absolute; }
     </style>
 </head>
 <body>
 
-    <div class="stickers" id="stickers-container"></div>
+    <audio id="audioAyang" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="container active-step" id="step-1">
-        <h1>Haii Ayanggg! 👋🧸</h1>
-        <p>Ada sesuatu yang spesial nih buat kamu. Tapi nggak semudah itu buat buka kado ini! Ayang harus lewatin <b>Ujian Kebucinan</b> dulu. Berani?</p>
-        <button onclick="nextStep(2)">Mulai Ujian! 🚀</button>
+    <div class="stickers" id="stickers"></div>
+
+    <div class="container active" id="stage0">
+        <div style="font-size: 4rem;">🎁</div>
+        <h1>Halo Ayang!</h1>
+        <p>Ada kiriman paket cinta spesial buat <b>Risma Ayu Nursyifa</b>. Buka sekarang?</p>
+        <button onclick="mulaiSemua()">Buka Paket 💌</button>
     </div>
 
-    <div class="container" id="step-2">
-        <h2>Pertanyaan #1 🧐</h2>
-        <p>Siapa cewek paling cantik, paling gemesin, dan paling lucuuu di seluruh alam semesta?</p>
-        <div>
-            <button onclick="nextStep(3)">Ayu Dong! 🥰</button>
-            <button id="btn-salah" ontouchstart="dodgeButton()" onmouseover="dodgeButton()" onclick="alertSalah()">Orang Lain 😒</button>
+    <div class="container" id="stage1">
+        <h1>Stage 1: Verifikasi</h1>
+        <p>Sebelum lanjut, bener ini dengan Ayang Ayu yang punya senyum paling manis itu?</p>
+        <button onclick="nextStage(1)">Iya, ini aku! 🥰</button>
+        <button onclick="alert('Masa sih? Boong ya!')" style="background:#aaa">Bukan, salah orang</button>
+    </div>
+
+    <div class="container" id="stage2">
+        <h1>Stage 2: Mood Check</h1>
+        <p>Gimana perasaan Ayang hari ini? (Geser ke kanan kalau lagi happy!)</p>
+        <div id="mood-emoji" style="font-size: 3rem;">😐</div>
+        <input type="range" min="0" max="100" value="50" oninput="updateMood(this.value)">
+        <button id="btn-next2" class="hidden" onclick="nextStage(2)">Lanjut Ayang! ➡</button>
+    </div>
+
+    <div class="container" id="stage3">
+        <h1>Stage 3: Ujian Sabar</h1>
+        <p>Coba klik tombol "Sayang Aku" di bawah ini!</p>
+        <div style="height: 150px; position: relative;">
+            <button id="btn-lari" onmouseover="lari()" ontouchstart="lari()">Sayang Aku ❤️</button>
+        </div>
+        <p id="pesan-sabar" style="font-size: 0.8rem; color: #999;">Ayo kejar kalau sayang!</p>
+    </div>
+
+    <div class="container" id="stage4">
+        <h1>Stage 4: Kirim Peluk</h1>
+        <p>Klik tombol ini 10 kali buat kirim peluk jauh!</p>
+        <button onclick="clickPeluk()" id="btn-peluk">Peluk! (0/10) 🫂</button>
+    </div>
+
+    <div class="container" id="stage5">
+        <h1>Stage 5: Skala Kangen</h1>
+        <p>Seberapa kangen Ayang sama aku saat ini?</p>
+        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateKangen(this.value)">
+        <p id="kangen-text">Geser pol kalau kangen banget!</p>
+        <button id="btn-next5" class="hidden" onclick="nextStage(5)">Kangen Banget! 😘</button>
+    </div>
+
+    <div class="container" id="stage6">
+        <h1>Stage 6: Tebak Hati</h1>
+        <p>Di mana letak cintaku buat kamu?</p>
+        <button onclick="nextStage(6)">Di Hati ❤️</button>
+        <button onclick="nextStage(6)">Di Pikiran 🧠</button>
+        <button onclick="nextStage(6)">Di Seluruh Jiwa Raga 💖</button>
+    </div>
+
+    <div class="container" id="stage7">
+        <h1>Stage 7: Janji Ayang</h1>
+        <p>Ayang janji nggak bakal telat makan hari ini?</p>
+        <button onclick="nextStage(7)">Janji Sayang! 🥗</button>
+    </div>
+
+    <div class="container" id="stage8">
+        <h1>Stage 8: Loading Cinta</h1>
+        <p>Tahan tombol ini buat ngisi energi cinta kita!</p>
+        <button onmousedown="startFill()" onmouseup="stopFill()" ontouchstart="startFill()" ontouchend="stopFill()" id="btn-charge">Tekan Terusss! ⚡</button>
+        <div class="progress-bar" style="height:10px; background:#eee; margin-top:10px; border-radius:5px;">
+            <div id="fill-bar" style="height:100%; width:0%; background:var(--pink-dark); transition: 0.1s;"></div>
         </div>
     </div>
 
-    <div class="container" id="step-3">
-        <h2>Pertanyaan #2 🥺</h2>
-        <p>Seberapa kangen Ayang sama aku hari ini?</p>
-        <p id="slider-text" style="color: #ff66a3; font-size: 1.3rem; font-weight: bold;">Geser dong!</p>
-        <input type="range" min="0" max="100" value="0" id="kangen-slider" oninput="updateSlider()">
-        <br>
-        <button id="btn-lanjut-3" class="hide" onclick="nextStep(4)">Nah Gitu Dong! Lanjut 😘</button>
+    <div class="container" id="stage9">
+        <h1>Stage 9: Hampir Selesai!</h1>
+        <p>Semua stage sudah dilewati dengan sangat baik. Siap lihat hasilnya?</p>
+        <button onclick="nextStage(9)">SIAP BANGET! 👑</button>
     </div>
 
-    <div class="container" id="step-4">
-        <h2>Ujian Terakhir! ✨</h2>
-        <p>Buktiin kalau Ayang emang punya senyum paling manis! Coba senyum yang lebar, trus klik tombol di bawah ini 5 kali!</p>
-        <button onclick="clickSenyum()" id="btn-senyum">Klik Sambil Senyum! (0/5) 😊</button>
-    </div>
-
-    <div class="container" id="step-5">
-        <h2>Memproses Data... ⚙️</h2>
-        <p id="loading-text">Menghubungi Pusat Kebucinan Nasional...</p>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
-        </div>
-    </div>
-
-    <div class="container" id="step-6">
-        <h1>Yeay! Lulus Ujian! 🎉</h1>
+    <div class="container" id="stage10" style="max-width: 550px;">
+        <h1>Stage 10: Hasil Akhir</h1>
         
-        <div class="certificate-wrapper">
-            <div class="certificate-inner">
-                <div class="cert-title">Sertifikat Penghargaan</div>
-                <p>Dengan bangga dan penuh cinta, diberikan kepada:</p>
-                <div class="cert-name">Ayu</div>
-                <div class="cert-desc">
-                    Sebagai: <br>
-                    <span style="font-size: 1.6rem; color: #ff4d94; font-family: 'Fredoka One', cursive; display: inline-block; margin: 10px 0;">"Pemilik Senyuman Termanis"</span><br>
-                    Yang telah berhasil meluluhkan hatiku seutuhnya, tanpa syarat, setiap hari. ❤️
-                </div>
-                <div class="cert-footer">Disahkan oleh: Aku yang selalu mencintaimu ✨</div>
+        <div id="certificate-area">
+            <div class="cert-header">Sertifikat Cinta</div>
+            <p style="margin: 5px 0;">Diberikan Kepada :</p>
+            <div class="cert-name">Risma Ayu Nursyifa</div>
+            <div class="cert-body">
+                Ditetapkan Sebagai : <br>
+                <span style="font-size: 1.5rem; color: #d63384;">👑 Pemilik Senyuman Termanis 👑</span><br>
+                Karena telah berhasil meluluhkan hatiku <br> berkali-kali tanpa rasa bosan.
+            </div>
+            <div style="margin-top: 15px; font-size: 0.7rem; color: #888;">
+                Tertanda, Lelaki yang Selalu Mencintaimu ❤️
             </div>
         </div>
 
-        <div class="audio-container">
-            <p style="margin-bottom: 10px; font-weight: bold; color: #e6005c;">Dengerin ini ya sayangku... 🎧</p>
-            <audio id="myAudio" controls loop>
-                <source src="lagu.mp3" type="audio/mpeg">
-                Browser kamu tidak mendukung pemutar musik.
-            </audio>
-        </div>
+        <button onclick="downloadCert()" style="background: #28a745;">⬇️ Simpan Sertifikat (PNG)</button>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Gunakan sebagai bukti kalau Ayang emang yang paling manis! 😍</p>
     </div>
 
     <script>
-        // --- Floating Stickers Generator ---
-        const emojis = ['💖', '🌸', '🧸', '✨', '🎀', '🥰', '🦋', '🍓'];
-        const stickersContainer = document.getElementById('stickers-container');
-        
-        // Dikurangi sedikit jumlahnya supaya nggak bikin lag di HP
-        for (let i = 0; i < 15; i++) {
-            let sticker = document.createElement('div');
-            sticker.classList.add('sticker');
-            sticker.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            sticker.style.left = Math.random() * 100 + 'vw';
-            sticker.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            sticker.style.animationDelay = Math.random() * 5 + 's';
-            sticker.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-            stickersContainer.appendChild(sticker);
+        const audio = document.getElementById('audioAyang');
+        let currentStage = 0;
+
+        function mulaiSemua() {
+            audio.play();
+            nextStage(0);
+            createStickers();
         }
 
-        // --- Step Navigation ---
-        function nextStep(step) {
-            const steps = document.querySelectorAll('.container');
-            steps.forEach(s => s.classList.remove('active-step'));
-            document.getElementById('step-' + step).classList.add('active-step');
-
-            if (step === 5) {
-                startLoading();
-            }
-            
-            // Auto-play lagu ketika masuk step 6 (sertifikat)
-            if (step === 6) {
-                const audio = document.getElementById("myAudio");
-                audio.play().catch(error => {
-                    console.log("Browser butuh user interaksi buat play:", error);
-                });
-            }
+        function nextStage(num) {
+            document.getElementById('stage' + num).classList.remove('active');
+            currentStage = num + 1;
+            document.getElementById('stage' + currentStage).classList.add('active');
         }
 
-        // --- Step 2 Logic (Dodging Button untuk HP & Laptop) ---
-        function dodgeButton() {
-            const btn = document.getElementById('btn-salah');
-            // Menyesuaikan dengan batas layar supaya tombol nggak kabur ke luar layar HP
-            const maxX = window.innerWidth - btn.offsetWidth - 20;
-            const maxY = window.innerHeight - btn.offsetHeight - 20;
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
-            
-            btn.style.position = 'fixed';
-            btn.style.left = `${Math.max(10, x)}px`;
-            btn.style.top = `${Math.max(10, y)}px`;
-        }
-
-        function alertSalah() {
-            alert("Tettoooot! Ketangkep, tapi tetep salah! Cuma Ayang Ayu yang paling cantik! 😝");
-        }
-
-        // --- Step 3 Logic (Slider) ---
-        function updateSlider() {
-            const slider = document.getElementById('kangen-slider');
-            const text = document.getElementById('slider-text');
-            const btn = document.getElementById('btn-lanjut-3');
-            
-            let val = slider.value;
-            if (val == 0) text.innerText = "Masa nggak kangen sih? 😢";
-            else if (val < 30) text.innerText = "Dikit doang nih? Hmmm 🤨";
-            else if (val < 70) text.innerText = "Lumayan... tapi kurang! 🤭";
-            else if (val < 100) text.innerText = "Banyaakkk! 😍";
+        // Stage 2: Mood
+        function updateMood(v) {
+            const e = document.getElementById('mood-emoji');
+            if(v < 30) e.innerText = "😢";
+            else if(v < 70) e.innerText = "😐";
             else {
-                text.innerText = "KANGEN BANGET BANGET BANGET!!! 🚀💖";
-                btn.classList.remove('hide');
-            }
-
-            if (val < 100) {
-                btn.classList.add('hide');
+                e.innerText = "🥰";
+                document.getElementById('btn-next2').classList.remove('hidden');
             }
         }
 
-        // --- Step 4 Logic (Clicker) ---
-        let senyumCount = 0;
-        function clickSenyum() {
-            senyumCount++;
-            const btn = document.getElementById('btn-senyum');
-            btn.innerText = `Klik Sambil Senyum! (${senyumCount}/5) 😊`;
+        // Stage 3: Lari
+        let lariCount = 0;
+        function lari() {
+            const btn = document.getElementById('btn-lari');
+            lariCount++;
+            const x = Math.random() * 150;
+            const y = Math.random() * 100;
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
             
-            if (senyumCount >= 5) {
-                btn.innerText = "Manis Bangetttt! 😍 Lanjut yuk!";
-                btn.onclick = function() { nextStep(5); };
+            if(lariCount > 5) {
+                document.getElementById('pesan-sabar').innerText = "Oke oke, ditangkep deh! ❤️";
+                btn.onmouseover = null;
+                btn.ontouchstart = null;
+                btn.style.position = "static";
+                btn.onclick = () => nextStage(3);
             }
         }
 
-        // --- Step 5 Logic (Fake Loading) ---
-        function startLoading() {
-            const fill = document.getElementById('progress-fill');
-            const text = document.getElementById('loading-text');
-            let width = 0;
-            
-            const texts = [
-                "Menghubungi Pusat Kebucinan...",
-                "Mengukur kadar gula pada senyuman...",
-                "Memverifikasi kecantikan alami...",
-                "Mencetak Sertifikat Kebanggaan...",
-                "Selesai! ✨"
-            ];
+        // Stage 4: Peluk
+        let pelukCount = 0;
+        function clickPeluk() {
+            pelukCount++;
+            const b = document.getElementById('btn-peluk');
+            b.innerText = `Peluk! (${pelukCount}/10) 🫂`;
+            if(pelukCount >= 10) {
+                b.innerText = "Terkirim! 🚀 Lanjut";
+                b.onclick = () => nextStage(4);
+            }
+        }
 
-            let textIndex = 0;
-            let interval = setInterval(() => {
-                width += 1;
-                fill.style.width = width + '%';
+        // Stage 5: Kangen
+        function updateKangen(v) {
+            const t = document.getElementById('kangen-text');
+            if(v > 90) {
+                t.innerText = "AKU JUGA KANGEN BANGETTT!! ❤️";
+                document.getElementById('btn-next5').classList.remove('hidden');
+            }
+        }
 
-                if (width % 20 === 0 && textIndex < texts.length) {
-                    text.innerText = texts[textIndex];
-                    textIndex++;
+        // Stage 8: Charge
+        let fillInterval;
+        let fillVal = 0;
+        function startFill() {
+            fillInterval = setInterval(() => {
+                fillVal += 2;
+                document.getElementById('fill-bar').style.width = fillVal + '%';
+                if(fillVal >= 100) {
+                    clearInterval(fillInterval);
+                    document.getElementById('btn-charge').innerText = "Full Energy! ❤️";
+                    setTimeout(() => nextStage(8), 500);
                 }
+            }, 50);
+        }
+        function stopFill() { clearInterval(fillInterval); }
 
-                if (width >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        nextStep(6);
-                    }, 1000);
-                }
-            }, 40); 
+        // Stickers
+        function createStickers() {
+            const container = document.getElementById('stickers');
+            const icons = ['💖', '🥰', '✨', '🌸', '🧸', '🍭'];
+            setInterval(() => {
+                const s = document.createElement('div');
+                s.className = 'sticker';
+                s.innerText = icons[Math.floor(Math.random()*icons.length)];
+                s.style.left = Math.random()*100 + 'vw';
+                container.appendChild(s);
+                setTimeout(() => s.remove(), 8000);
+            }, 600);
+        }
+
+        // DOWNLOAD SERTIFIKAT
+        function downloadCert() {
+            const area = document.getElementById('certificate-area');
+            html2canvas(area, {
+                backgroundColor: "#fff0f6",
+                scale: 3 // Kualitas tinggi
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Sertifikat_Ayu.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
         }
     </script>
 </body>
